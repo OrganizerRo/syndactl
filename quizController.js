@@ -1,11 +1,12 @@
 app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFactory){
     
     $scope.SequentialMode = false;
-    $scope.StudyMode = true;
+    $scope.StudyMode = false;
     $scope.NumOfChoices = 4;
     $scope.lastResult = {};	
     $scope.db = [];
-            
+    $scope.QuestionIndex = 0;
+	
     $scope.Question = {};
     $scope.lstAnswers = [];
 	$scope.lastResult = { 
@@ -28,6 +29,22 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 			return 100;
 		return (($scope.CorrectAnswers / ($scope.CorrectAnswers + $scope.IncorrectAnswers)) * 100);
 	}
+	$scope.SequentialMode_OnClick = function() {
+		if($scope.SequentialMode){
+			$scope.QuestionIndex = 0;
+			$scope.LoadNextQuestion();
+		}
+	};
+	
+	$scope.StudyMode_OnClick = function() {
+		if($scope.StudyMode)
+			$scope.lastResult = {
+				correct: true,
+				msg: "Study Hard !",
+				Question: $scope.Question
+			};
+	};
+	
     $scope.Randomize =  function(start, end) {
         return Math.floor((Math.random() * end) + start);
     };
@@ -38,18 +55,20 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
     
     $scope.TestAnswer = function(qid){        
         var isRight = (qid == $scope.Question.qid);
-        
+		
 		$scope.lastResult = { 
 			correct: isRight,
 			msg: (isRight)? "Great Job !": "InCorrect",
 			Question: null,
 			cssClass:  (isRight)? "correct": "incorrect"
 		};
+		
 		if(isRight) {
 			$scope.CorrectAnswers++;
 		} else {
 			$scope.IncorrectAnswers++;
 		}
+		
 		$scope.LoadNextQuestion();
     };
     
@@ -71,7 +90,20 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
     
     
     $scope.LoadNextQuestion = function(){
-        var lQuestion = $scope.GetRandomQuestion();
+		
+        var lQuestion = {};
+		
+		if($scope.SequentialMode) {			
+			lQuestion = $scope.db[$scope.QuestionIndex];
+			
+			if($scope.QuestionIndex == $scope.db.length - 1)
+				$scope.QuestionIndex = 0;
+			else
+				$scope.QuestionIndex++;
+		} else {			
+			lQuestion = $scope.GetRandomQuestion();
+		}
+
         $scope.Question = lQuestion;        
 		
         $scope.lstAnswers = [{ 

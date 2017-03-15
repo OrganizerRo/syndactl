@@ -17,22 +17,25 @@
   <![endif]-->
   
 <div class="container">
-    <div id="imagediv" style="width: 100%;">
-		<div class="score">
-			{{ Score() | pct:0 }} %
-		</div>
-        <img style="width: 373px; margin: auto;display: block;" ng-src="{{Question.picture}}"></img>		
+    <div id="imagediv">
+        <img style="margin: auto;display: block;" ng-src="{{Question.picture}}"></img>		
     </div>
+	<div class="score">
+		{{ Score() | pct:0 }} %
+	</div>
     <div class="question" id="questionDiv">
         {{Question.question}}
     </div>
     <div id="dvOptions">
-        <input type="checkbox" ng-checked="{{ StudyMode }}" />
-        <input type="checkbox" ng-checked="{{ SequentialMode }}" /> 
+        <span>Study Mode <input type="checkbox" ng-model="StudyMode" ng-click="StudyMode_OnClick()" /></span>
+        <span>Sequential Mode<input type="checkbox" ng-model="SequentialMode" ng-click="SequentialMode_OnClick()" /> </span>
     </div>
     <div class="answer">
         <div ng-class="lastResult.cssClass" style="padding: 10px"> 
 			{{ lastResult.msg}}
+		</div>
+		<div class="studymode" ng-show="StudyMode">
+			{{ Question.answer}}
 		</div>
     </div>
     <div id="answerdivs">        

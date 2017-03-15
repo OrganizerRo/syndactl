@@ -8,7 +8,11 @@ html ,body{
   margin-bottom: 2em;
   padding: 0 0 0.5em;
 }
-
+#imagediv{
+	border: solid 1px #000;
+	width: 98%;
+	background-color: #000;
+}
 .menu:before {
   content: "[";
 }
@@ -38,7 +42,7 @@ html ,body{
 	background-color: red;
 }
 .answerbuttons {
-	width: 100%;
+	width: 95%;
 	text-align:center;
 	padding: 10px;
 	margin: 2p;
@@ -46,8 +50,19 @@ html ,body{
 }
 .score {
 	font-size: 4em;
-	float:left;
+	width: 98%;
+	text-align: center;
+	border: solid 1px #ccc;
+	background-color: #FFF;
+	color: #0F0;
 }
 .question, .answer {
+	padding: 10px;
+}
+.studymode {
+	background-color: #ccc;
+	color: white;
+	width: 90%;
+	text-align: center;
 	padding: 10px;
 }

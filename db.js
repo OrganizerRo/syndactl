@@ -36,8 +36,8 @@ app.factory("dbFactory", function ($http) {
         },
         {
             qid: 5,
-            question: "",
-            answer: "34",
+            question: "There is nothing here",
+            answer: "ok",
             picture: "12Glyphs.gif",
             hint: "",
             study: ""
