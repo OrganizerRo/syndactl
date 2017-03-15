@@ -1,5 +1,7 @@
 /* app css stylesheet */
-
+html ,body{
+	width: 100%;
+}
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -22,4 +24,30 @@
 .menu > li + li:before {
   content: "|";
   padding-right: 0.3em;
+}
+.container {
+	width: 100%;
+}
+.correct {
+	color: white;
+	background-color: green;
+}
+
+.incorrect {
+	color: white;
+	background-color: red;
+}
+.answerbuttons {
+	width: 100%;
+	text-align:center;
+	padding: 10px;
+	margin: 2p;
+	background-color: white;
+}
+.score {
+	font-size: 4em;
+	float:left;
+}
+.question, .answer {
+	padding: 10px;
 }

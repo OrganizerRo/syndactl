@@ -16,27 +16,32 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
   
-
-  <div>Angular seed app: v<span app-version></span></div>
-    
-    <div id="imagediv">
-        <img src=""></img>
+<div class="container">
+    <div id="imagediv" style="width: 100%;">
+		<div class="score">
+			{{ Score() | pct:0 }} %
+		</div>
+        <img style="width: 373px; margin: auto;display: block;" ng-src="{{Question.picture}}"></img>		
     </div>
-    <div id="questionDiv">
+    <div class="question" id="questionDiv">
         {{Question.question}}
     </div>
     <div id="dvOptions">
-        <input type="checkbox" ng-checked="{{ StudyMode}}" />
+        <input type="checkbox" ng-checked="{{ StudyMode }}" />
         <input type="checkbox" ng-checked="{{ SequentialMode }}" /> 
     </div>
-    <div>
-        {{ ResponseMessage }}
+    <div class="answer">
+        <div ng-class="lastResult.cssClass" style="padding: 10px"> 
+			{{ lastResult.msg}}
+		</div>
     </div>
     <div id="answerdivs">        
-        <div div ng-repeat="ans in lstAnswers">
-            <input type="button" ng-click="TestAnswer(ans.qid)" value="{{ ans.answer }}">
+        <div ng-repeat="ans in lstAnswers">
+            <input class="answerbuttons" type="button" ng-click="TestAnswer(ans.qid)" value="{{ ans.answer }}">
         </div>
-    </div>    
+    </div>
+	
+</div>
   
   <script src="angular.min.js"></script>  
   <script src="app.js"></script>    
