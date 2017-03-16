@@ -1,8 +1,14 @@
 /* app css stylesheet */
 html ,body{
 	width: 100%;
+	background-color: #316bff;
+	font-family: Helvetica, sans-serif;
 }
-
+.textcheck {
+	font-size: 3em;
+	font-family: WingDings;
+	cursor: pointer;
+}
 #imagediv{	
 	width: 373px;
 	margin: auto;
@@ -27,12 +33,21 @@ html ,body{
 	color: white;
 	background-color: red;
 }
+.answerbuttondiv {
+	/*border: solid 3px #000;*/
+	border: solid 1px #000;
+	width: 98%;	
+}
 .answerbuttons {
-	width: 98%;
+	cursor: pointer;
+	width: 200px;
 	text-align:center;
 	padding: 10px;
 	margin: 4px;
-	background-color: #ccc;
+	border: dashed 1px #000;
+	background-color: #FFA500;
+	padding-top: 10px;
+	float: left;
 	/*font-size: 1.5em;*/
 }
 .score {
@@ -40,8 +55,9 @@ html ,body{
 	width: 98%;
 	text-align: center;
 	border: solid 1px #ccc;
-	background-color: #FFF;
+	/*background-color: #FFF;*/
 	color: #0F0;
+	padding: 2px;
 }
 .quizoptions{
 	width: 98%;
@@ -51,6 +67,7 @@ html ,body{
 }
 .question{
 	/*font-size: 2em;*/
+	padding: 5px;
 	margin-top: 5px;
 	margin-bottom: 10px;
 	background-color: #000;
