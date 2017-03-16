@@ -1,25 +1,68 @@
 /* app css stylesheet */
-
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+html ,body{
+	width: 100%;
 }
 
-.menu:before {
-  content: "[";
+#imagediv{	
+	width: 373px;
+	margin: auto;
+	background-color: #000;
+	overflow-x: hidden;		
+}
+#imagediv image {	
+	
+}
+.answerwingding{
+	/*font-size: 4em;*/
+}
+.container {
+	width: 100%;
+}
+.correct {
+	color: white;
+	background-color: green;
 }
 
-.menu:after {
-  content: "]";
+.incorrect {
+	color: white;
+	background-color: red;
 }
-
-.menu > li {
-  display: inline;
+.answerbuttons {
+	width: 98%;
+	text-align:center;
+	padding: 10px;
+	margin: 4px;
+	background-color: #ccc;
+	/*font-size: 1.5em;*/
 }
-
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
+.score {
+	/*font-size: 4em;*/
+	width: 98%;
+	text-align: center;
+	border: solid 1px #ccc;
+	background-color: #FFF;
+	color: #0F0;
+}
+.quizoptions{
+	width: 98%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+.question{
+	/*font-size: 2em;*/
+	margin-top: 5px;
+	margin-bottom: 10px;
+	background-color: #000;
+	color: white;
+}
+.question, .answer {
+	width: 98%;	
+	text-align: center;	
+}
+.studymode {
+	background-color: #000;
+	color: white;
+	width: 98%;
+	text-align: center;	
 }

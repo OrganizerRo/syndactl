@@ -16,29 +16,44 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
   
-
-  <div>Angular seed app: v<span app-version></span></div>
-    
-    <div id="imagediv">
-        <img src=""></img>
+<div class="container">
+    <div id="imagediv" ng-click="StudyImage_OnClick()">
+        <img ng-src="{{Question.picture}}"></img>		
     </div>
-    <div id="questionDiv">
+	<div class="quizoptions">
+        <span>Study Mode <input type="checkbox" ng-model="StudyMode" ng-click="StudyMode_OnClick()" /></span>
+        <span>Sequential Mode<input type="checkbox" ng-model="SequentialMode" ng-click="SequentialMode_OnClick()" /> </span>
+    </div>
+	<div class="score">
+		{{ Score() | pct:0 }} %
+	</div>
+	<div class="answer">
+        <div ng-class="lastResult.cssClass" style="padding: 10px"> 
+			<div class="answerwingding" ng-show="lastResult.correct" style="font-family:Wingdings">&#x004a;</div>
+			<div class="answerwingding" ng-show="lastResult.correct == false" style="font-family:Wingdings">&#x004b;</div>
+			{{ lastResult.msg}}
+		</div>
+		<div >
+		&nbsp;<span ng-show="StudyMode || !lastResult.correct" >{{ Question.answer}}</span>
+		</div>
+    </div>
+	
+
+    <div class="question" id="questionDiv">
         {{Question.question}}
     </div>
-    <div id="dvOptions">
-        <input type="checkbox" ng-checked="{{ StudyMode}}" />
-        <input type="checkbox" ng-checked="{{ SequentialMode }}" /> 
-    </div>
-    <div>
-        {{ ResponseMessage }}
-    </div>
     <div id="answerdivs">        
-        <div div ng-repeat="ans in lstAnswers">
-            <input type="button" ng-click="TestAnswer(ans.qid)" value="{{ ans.answer }}">
+        <div ng-repeat="ans in lstAnswers">
+            <input class="answerbuttons" type="button" ng-click="TestAnswer(ans.qid)" value="{{ ans.answer }}">
         </div>
-    </div>    
-  
-  <script src="angular.min.js"></script>  
+    </div>
+	
+</div>
+  <!-- <script src="jquery-3.1.1.min.js"></script>  
+  <script src="angular.min.js"></script>   -->
+  <script src="library.js"></script>  
   <script src="app.js"></script>    
+  <script src="db.js"></script>
+  <script src="quizController.js"></script>
 </body>
 </html>
