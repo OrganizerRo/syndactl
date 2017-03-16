@@ -36,6 +36,9 @@
 	<div class="score">
 		{{ Score() | pct:0 }} %
 	</div>
+    <div class="question" id="questionDiv">
+        {{Question.question}}
+    </div>
 	<div class="answer">
         <div ng-class="lastResult.cssClass" style="padding: 10px"> 
 			<div class="answerwingding" ng-show="lastResult.correct" style="font-family:Wingdings">&#x004a;</div>
@@ -46,6 +49,7 @@
 		<span ng-show="StudyMode || !lastResult.correct" >{{ Question.answer}}</span>
 		</div>
     </div>
+<<<<<<< HEAD
 	
 
     <div class="question" id="questionDiv">
@@ -53,6 +57,10 @@
     </div>
     <div class="answerbuttondiv">        
         <div class="buttondiv" ng-repeat="ans in lstAnswers">
+=======
+    <div id="answerdivs">        
+        <div ng-repeat="ans in lstAnswers">
+>>>>>>> 8a6d28e249e9ba2069a3b96684ed99cacfd83676
             <input class="answerbuttons" type="button" ng-click="TestAnswer(ans.qid)" value="{{ ans.answer }}">
         </div>
     </div>
