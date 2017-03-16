@@ -2,32 +2,18 @@
 html ,body{
 	width: 100%;
 }
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
-}
-#imagediv{
-	border: solid 1px #000;
-	width: 98%;
+
+#imagediv{	
+	width: 373px;
+	margin: auto;
 	background-color: #000;
+	overflow-x: hidden;		
 }
-.menu:before {
-  content: "[";
+#imagediv image {	
+	
 }
-
-.menu:after {
-  content: "]";
-}
-
-.menu > li {
-  display: inline;
-}
-
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
+.answerwingding{
+	/*font-size: 4em;*/
 }
 .container {
 	width: 100%;
@@ -42,27 +28,41 @@ html ,body{
 	background-color: red;
 }
 .answerbuttons {
-	width: 95%;
+	width: 98%;
 	text-align:center;
 	padding: 10px;
 	margin: 4px;
-	background-color: white;
+	background-color: #ccc;
+	/*font-size: 1.5em;*/
 }
 .score {
-	font-size: 4em;
+	/*font-size: 4em;*/
 	width: 98%;
 	text-align: center;
 	border: solid 1px #ccc;
 	background-color: #FFF;
 	color: #0F0;
 }
+.quizoptions{
+	width: 98%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+.question{
+	/*font-size: 2em;*/
+	margin-top: 5px;
+	margin-bottom: 10px;
+	background-color: #000;
+	color: white;
+}
 .question, .answer {
-	padding: 10px;
+	width: 98%;	
+	text-align: center;	
 }
 .studymode {
-	background-color: #ccc;
+	background-color: #000;
 	color: white;
-	width: 90%;
-	text-align: center;
-	padding: 10px;
+	width: 98%;
+	text-align: center;	
 }

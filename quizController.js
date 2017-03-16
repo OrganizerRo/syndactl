@@ -1,3 +1,4 @@
+
 app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFactory){
     
     $scope.SequentialMode = false;
@@ -6,7 +7,6 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
     $scope.lastResult = {};	
     $scope.db = [];
     $scope.QuestionIndex = 0;
-	
     $scope.Question = {};
     $scope.lstAnswers = [];
 	$scope.lastResult = { 
@@ -36,6 +36,16 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 		}
 	};
 	
+	$scope.StudyImage_OnClick = function() {	
+		var curobj = $("#imagediv")[0];
+		var curpos = curobj.scrollLeft;
+		
+		if(curpos == 0)
+			curobj.scrollLeft = 373;
+		else
+			curobj.scrollLeft = 0;		
+	};
+	
 	$scope.StudyMode_OnClick = function() {
 		if($scope.StudyMode)
 			$scope.lastResult = {
@@ -43,7 +53,7 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 				msg: "Study Hard !",
 				Question: $scope.Question
 			};
-	};
+	};	
 	
     $scope.Randomize =  function(start, end) {
         return Math.floor((Math.random() * end) + start);
@@ -87,8 +97,8 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 		
         return allowedAnswers[rndQuestionIX];
     };
-    
-    
+        
+	
     $scope.LoadNextQuestion = function(){
 		
         var lQuestion = {};
@@ -102,8 +112,8 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 				$scope.QuestionIndex++;
 		} else {			
 			lQuestion = $scope.GetRandomQuestion();
-		}
-
+		}		
+		
         $scope.Question = lQuestion;        
 		
         $scope.lstAnswers = [{ 
