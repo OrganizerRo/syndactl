@@ -1,18 +1,18 @@
 /* app css stylesheet */
 html ,body{
 	width: 100%;
-	background-color: #316bff;
+	/*background-color: #316bff;*/
 	font-family: Helvetica, sans-serif;
 }
 .textcheck {
-	font-size: 3em;
+	font-size: 1.5em;
 	font-family: WingDings;
 	cursor: pointer;
 }
 #imagediv{	
 	width: 373px;
 	margin: auto;
-	background-color: #000;
+	background-color: #FFFFFF;
 	overflow-x: hidden;		
 }
 #imagediv image {	
@@ -22,7 +22,7 @@ html ,body{
 	/*font-size: 4em;*/
 }
 .container {
-	width: 100%;
+	width: 98%;
 }
 .correct {
 	color: white;
@@ -34,9 +34,20 @@ html ,body{
 	background-color: red;
 }
 .answerbuttondiv {
-	/*border: solid 3px #000;*/
-	border: solid 1px #000;
-	width: 98%;	
+	/*border: solid 3px #FFFFFF;*/
+	width: 98%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.answerdivs {
+}
+
+.quizoptiontable{
+	border: solid 1px #FFFFFF; 
+	padding:0px;
+	margin: auto; 
+	width: 100px;
+	line-height: 2em;
 }
 .answerbuttons {
 	cursor: pointer;
@@ -44,20 +55,22 @@ html ,body{
 	text-align:center;
 	padding: 10px;
 	margin: 4px;
-	border: dashed 1px #000;
-	background-color: #FFA500;
+	border: dashed 1px #FFFFFF;
+	background-color: #AAA;
 	padding-top: 10px;
 	float: left;
+	color: white;
 	/*font-size: 1.5em;*/
 }
 .score {
 	/*font-size: 4em;*/
 	width: 98%;
 	text-align: center;
-	border: solid 1px #ccc;
-	/*background-color: #FFF;*/
-	color: #0F0;
+	border: solid 1px #FFFFFF;
+	background-color: #FFFFFF;
+	color: #FFF;
 	padding: 2px;
+	font-weight: bold;
 }
 .quizoptions{
 	width: 98%;
@@ -70,8 +83,8 @@ html ,body{
 	padding: 5px;
 	margin-top: 5px;
 	margin-bottom: 10px;
-	background-color: #000;
-	color: white;
+	background-color: #FFFFFF;
+	color: black;
 }
 .question, .answer {
 	width: 98%;	
@@ -81,8 +94,8 @@ html ,body{
 	font-size: 6em;
 }
 .studymode {
-	background-color: #000;
-	color: white;
+	background-color: #FFFFFF;
+	color: black;
 	width: 98%;
 	text-align: center;	
 }

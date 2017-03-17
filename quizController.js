@@ -1,34 +1,44 @@
 
 app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFactory){
     
+	//public
     $scope.SequentialMode = false;
     $scope.StudyMode = false;
-    $scope.NumOfChoices = 8;
-    $scope.lastResult = {};	
+    $scope.NumOfChoices = 4;
+	$scope.MultipleChoiceMode = false;
+	$scope.txtAnswer = "";
+	//privates
+	$scope.CorrectAnswers = 0;
+    $scope.IncorrectAnswers = 0;
     $scope.db = [];
     $scope.QuestionIndex = 0;
     $scope.Question = {};
     $scope.lstAnswers = [];
+	$scope.lastResult = {};
+	$scope.ResponseMessage = "";
+    
+	
 	$scope.lastResult = { 
 		correct: true,
 		msg: "Good Luck",
 		Question: null
 	};
-	
-    $scope.ResponseMessage = "";
-    
-    $scope.CorrectAnswers = 0;
-    $scope.IncorrectAnswers = 0;
     
     $scope.init = function(){
 		$scope.db = dbFactory.ZodiacalMonths();
         $scope.LoadNextQuestion();
     }
-    $scope.Score = function() {
+    
+	$scope.dbTitle = function(){
+		return dbFactory.Title;
+	};
+	
+	$scope.Score = function() {
 		if ($scope.CorrectAnswers + $scope.IncorrectAnswers == 0)
 			return 100;
 		return (($scope.CorrectAnswers / ($scope.CorrectAnswers + $scope.IncorrectAnswers)) * 100);
 	}
+	
 	$scope.SequentialMode_OnClick = function() {
 		$scope.SequentialMode = !$scope.SequentialMode
 		if($scope.SequentialMode){
@@ -56,7 +66,29 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 				msg: "Study Hard !",
 				Question: $scope.Question
 			};
+		else
+			$scope.lastResult = {
+				correct: true,
+				msg: "",
+				Question: $scope.Question
+			};
 	};	
+	
+	$scope.btnTestAnswer_OnClick = function() {
+		var isRight = $scope.txtAnswer.toLowerCase().indexOf($scope.Question.answer.toLowerCase()) > -1;
+		$scope.txtAnswer = "";
+		
+		$scope.SetAnswerState(isRight, $scope.Question);
+		
+		$scope.LoadNextQuestion();				
+		
+	};
+	
+	$scope.MultipleChoiceMode_OnClick = function() {
+		$scope.MultipleChoiceMode = !$scope.MultipleChoiceMode; //toggle
+		
+		
+	};
 	
     $scope.Randomize =  function(start, end) {
         return Math.floor((Math.random() * end) + start);
@@ -67,12 +99,18 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
     };
     
     $scope.TestAnswer = function(qid){        
-        var isRight = (qid == $scope.Question.qid);
+        var isRight = (qid == $scope.Question.qid);		
 		
+		$scope.SetAnswerState(isRight, $scope.Question);
+		
+		$scope.LoadNextQuestion();		
+    };
+    
+	$scope.SetAnswerState = function(isRight, inQuestion){		
 		$scope.lastResult = { 
 			correct: isRight,
 			msg: (isRight)? "Great Job !": "InCorrect",
-			Question: null,
+			Question: inQuestion,
 			cssClass:  (isRight)? "correct": "incorrect"
 		};
 		
@@ -81,10 +119,8 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 		} else {
 			$scope.IncorrectAnswers++;
 		}
-		
-		$scope.LoadNextQuestion();
-    };
-    
+	};
+	
     $scope.GetRandomQuestion = function(){
         var rndQuestionIX = $scope.Randomize(0, $scope.db.length -1);
         return $scope.db[rndQuestionIX];  //question row object
@@ -101,7 +137,6 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
         return allowedAnswers[rndQuestionIX];
     };
         
-	
     $scope.LoadNextQuestion = function(){
 		
         var lQuestion = {};
@@ -145,3 +180,11 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
      
     $scope.init();
 }]);
+
+$(document).ready(function(){
+	$('#txtAnswer').keyup(function(e){
+		if(e.keyCode==13){
+			$('#btnAnswer').click();
+		} 
+	});
+});

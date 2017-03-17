@@ -1,6 +1,7 @@
 app.factory("dbFactory", function ($http) {
 	var fac = {};
 	
+	fac.Title = "Learning The Zodiac";
 /* Vedic  Planets in English */
 fac.VedicPlanetsinEnglish = function() {
 	return [
