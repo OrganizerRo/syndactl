@@ -21,8 +21,17 @@
         <img ng-src="{{Question.picture}}"></img>		
     </div>
 	<div class="quizoptions">
-        <span>Study Mode <input type="checkbox" ng-model="StudyMode" ng-click="StudyMode_OnClick()" /></span>
-        <span>Sequential Mode<input type="checkbox" ng-model="SequentialMode" ng-click="SequentialMode_OnClick()" /> </span>
+		<span title="Sequential Mode">
+			<span style="font-size: 2.5em;">S</span>
+			<span class="textcheck" ng-click="SequentialMode_OnClick()" ng-show="SequentialMode">☑</span>
+			<span  class="textcheck" ng-click="SequentialMode_OnClick()" ng-show="!SequentialMode" >☐</span>
+		
+		</span>
+        <span title="Learn and Memorize"><span style="font-size: 2.5em;">L</span>
+			<span  class="textcheck" ng-click="StudyMode_OnClick()" ng-show="StudyMode">☑</span>
+			<span  class="textcheck" ng-click="StudyMode_OnClick()"  ng-show="!StudyMode" >☐</span>
+		</span>
+		
     </div>
 	<div class="score">
 		{{ Score() | pct:0 }} %
@@ -37,11 +46,21 @@
 			{{ lastResult.msg}}
 		</div>
 		<div >
-		&nbsp;<span ng-show="StudyMode || !lastResult.correct" >{{ Question.answer}}</span>
+		<span ng-show="StudyMode || !lastResult.correct" >{{ Question.answer}}</span>
 		</div>
     </div>
+<<<<<<< HEAD
+	
+
+    <div class="question" id="questionDiv">
+        {{Question.question}}
+    </div>
+    <div class="answerbuttondiv">        
+        <div class="buttondiv" ng-repeat="ans in lstAnswers">
+=======
     <div id="answerdivs">        
         <div ng-repeat="ans in lstAnswers">
+>>>>>>> 8a6d28e249e9ba2069a3b96684ed99cacfd83676
             <input class="answerbuttons" type="button" ng-click="TestAnswer(ans.qid)" value="{{ ans.answer }}">
         </div>
     </div>

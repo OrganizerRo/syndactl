@@ -3,7 +3,7 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
     
     $scope.SequentialMode = false;
     $scope.StudyMode = false;
-    $scope.NumOfChoices = 4;
+    $scope.NumOfChoices = 8;
     $scope.lastResult = {};	
     $scope.db = [];
     $scope.QuestionIndex = 0;
@@ -30,6 +30,7 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 		return (($scope.CorrectAnswers / ($scope.CorrectAnswers + $scope.IncorrectAnswers)) * 100);
 	}
 	$scope.SequentialMode_OnClick = function() {
+		$scope.SequentialMode = !$scope.SequentialMode
 		if($scope.SequentialMode){
 			$scope.QuestionIndex = 0;
 			$scope.LoadNextQuestion();
@@ -47,6 +48,8 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 	};
 	
 	$scope.StudyMode_OnClick = function() {
+		$scope.StudyMode = !$scope.StudyMode;
+		
 		if($scope.StudyMode)
 			$scope.lastResult = {
 				correct: true,
