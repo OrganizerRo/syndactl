@@ -80,8 +80,7 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 		
 		$scope.SetAnswerState(isRight, $scope.Question);
 		
-		$scope.LoadNextQuestion();				
-		
+		$scope.LoadNextQuestion();
 	};
 	
 	$scope.MultipleChoiceMode_OnClick = function() {

@@ -66,9 +66,9 @@ html ,body{
 	/*font-size: 4em;*/
 	width: 98%;
 	text-align: center;
-	border: solid 1px #FFFFFF;
+	border: solid 1px #CCC;
 	background-color: #FFFFFF;
-	color: #FFF;
+	color: black;
 	padding: 2px;
 	font-weight: bold;
 }
