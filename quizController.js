@@ -1,5 +1,5 @@
 
-app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFactory){
+app.controller("quizController", ['$scope', '$routeParams', 'dbFactory', function($scope, $routeParams, dbFactory){
     
 	//public
     $scope.SequentialMode = false;
@@ -25,10 +25,37 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
 	};
     
     $scope.init = function(){
-		$scope.db = dbFactory.ZodiacalMonths();
+		var view = window.location.search.toLowerCase().split('v=')[1];			
+		
+		switch(view){
+			case "zodiacalmonths":{
+				$scope.db = dbFactory.ZodiacalMonths();
+				break;
+			}
+			case 'zodiacwithintheelements' :{
+				$scope.db = dbFactory.ZodiacwithintheElements();
+				break;
+			}
+		}
+		$scope.CalculateNumberOfChoices();
         $scope.LoadNextQuestion();
     }
     
+	$scope.CalculateNumberOfChoices = function(){		
+		if($scope.db.length > 3)
+		{
+			$scope.NumOfChoices = 2
+		}		
+		if($scope.db.length > 6)
+		{
+			$scope.NumOfChoices = 3
+		}		
+		if($scope.db.length > 8)
+		{
+			$scope.NumOfChoices = 4
+		}		
+	};
+	
 	$scope.dbTitle = function(){
 		return dbFactory.Title;
 	};
@@ -128,7 +155,7 @@ app.controller("quizController", ['$scope', 'dbFactory', function($scope, dbFact
     $scope.GetRandomAnswer = function(NotAllowedAnswers){
         var allowedAnswers = $scope.db.filter(function(co, ix, ar){
             return NotAllowedAnswers.find(function(o,i,r){
-				return o.qid == co.qid;
+				return o.answer == co.answer;
 			}) == undefined;
         });				        
         var rndQuestionIX = $scope.Randomize(0, allowedAnswers.length - 1);        
