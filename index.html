@@ -16,10 +16,11 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-<div class="container">
-    <div id="imagediv" ng-click="StudyImage_OnClick()">
-        <img ng-src="{{Question.picture}}"></img>		
-    </div>
+<div id="qzcontainer" class="container" ng-if="MenuMode==false">
+    <div id="imagediv" onclick="quizApp.StudyImage_OnClick()">
+        <img id="qzimage" ng-src="{{Question.picture}}"></img>	
+		<img id="shadowimg" data-show="false" onclick="quizApp.ImageZoom_OnClick()" ng-src="{{Question.picture}}" style="display: none;"></img>
+    </div>	
 	<table class="quizoptiontable">
 			<tr>
 				<th>
@@ -30,6 +31,11 @@
 				</th>
 				<th>
 					<span style="font-size: 1.5em;">T</span>
+				</th>
+				<th rowspan="2">
+					<div id="imgzoom" onclick="quizApp.ImageZoom_OnClick()">
+						&#x00F6;
+					</div>
 				</th>
 			</tr>
 			<tr>
@@ -74,22 +80,26 @@
 		</div>
     </div>
     <div class="answerbuttondiv" ng-show="!MultipleChoiceMode">
-		<div class="answerdivs">        
-			<div class="collectionOfButtons" ng-repeat="ans in lstAnswers">
+		      
+			<span class="collectionOfButtons" ng-repeat="ans in lstAnswers">
 				<input class="answerbuttons" type="button" ng-click="TestAnswer(ans.qid)" value="{{ ans.answer }}">
-			</div>
-		</div>
+			</span>
+		
 	</div>
 	<div class="answertextdiv" ng-show="MultipleChoiceMode">
-		<div class="none">        
-			<input type="text" id="txtAnswer" ng-model="txtAnswer"  class="answertext" size="80">
-				
-			</input>
+		<div class="answerbuttondiv">
+			<input type="text" id="txtAnswer" ng-model="txtAnswer"  class="answertext" size="80"></input>
 		</div>
-		<div>
+		<div class="answerbuttondiv">
 			<input id="btnAnswer" type="button" class="answerbuttons"  ng-click="btnTestAnswer_OnClick()" value="Answer"> </input>
 		</div>
 	</div>
+</div>
+<div class="container" ng-if="MenuMode">
+	
+<a class="menulink" href="?v=zodiacalmonths">Zodiac Months</a>
+<a class="menulink" href="?v=zodiacwithintheelements">Element Zodiacs</a>
+
 </div>
   <!-- <script src="jquery-3.1.1.min.js"></script>  
   <script src="angular.min.js"></script>   -->

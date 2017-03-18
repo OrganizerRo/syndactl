@@ -10,13 +10,18 @@ html ,body{
 	cursor: pointer;
 }
 #imagediv{	
-	width: 373px;
-	margin: auto;
+	/*width: 373px;*/
+	margin-left: auto;
+	margin-right: auto;
+	border: solid 1px #000;
 	background-color: #FFFFFF;
 	overflow-x: hidden;		
 }
 #imagediv image {	
-	
+}
+#imgzoom{
+	font-family: WingDings;
+	font-size: 2em;
 }
 .answerwingding{
 	/*font-size: 4em;*/
@@ -33,32 +38,34 @@ html ,body{
 	color: white;
 	background-color: red;
 }
-.answerbuttondiv {
-	/*border: solid 3px #FFFFFF;*/
-	width: 98%;
+.answerbuttondiv {	
+	text-align: center;
+	width: 98%;	
 	margin-left: auto;
 	margin-right: auto;
+	
 }
 .answerdivs {
+	display: block;
+	/*margin: auto;*/	
+	width: auto;
 }
-
-.quizoptiontable{
-	border: solid 1px #FFFFFF; 
+.quizoptiontable{	
 	padding:0px;
-	margin: auto; 
-	width: 100px;
-	line-height: 2em;
+	margin-left: auto;
+	margin-right: auto;	
+	width: 80px;
+	line-height: 1em;
+	border-collapse: collapse;
+	margin-top: 5px;
 }
 .answerbuttons {
 	cursor: pointer;
-	width: 200px;
-	text-align:center;
+	/*width: 200px;	*/
 	padding: 10px;
-	margin: 4px;
-	border: dashed 1px #FFFFFF;
+	border: solid 1px #ccFFFF;
 	background-color: #AAA;
-	padding-top: 10px;
-	float: left;
+	padding-top: 10px;	
 	color: white;
 	/*font-size: 1.5em;*/
 }
@@ -74,9 +81,8 @@ html ,body{
 }
 .quizoptions{
 	width: 98%;
-	margin-top: 20px;
-	margin-bottom: 20px;
 	text-align: center;
+	border: solid 1px #000;
 }
 .question{
 	/*font-size: 2em;*/
