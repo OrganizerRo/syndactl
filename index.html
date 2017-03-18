@@ -16,13 +16,21 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-<div id="qzcontainer" class="container" ng-if="MenuMode==false">
-    <div id="imagediv" onclick="quizApp.StudyImage_OnClick()">
-        <img id="qzimage" ng-src="{{Question.picture}}"></img>	
-		<img id="shadowimg" data-show="false" onclick="quizApp.ImageZoom_OnClick()" ng-src="{{Question.picture}}" style="display: none;"></img>
-    </div>	
+<div id="qzcontainer" class="container" ng-if="MenuMode==false" >
+    <div id="imagediv" data-zoomed="false">
+		<div id="viewportimgzoom" class="wingdtextbutton" style="display: none;" onclick="quizApp.ImageZoom_OnClick()">			
+			<div style="float: left;">&#x00F8;</div>
+			<div style="float: right;">&#x00F7;</div>			
+		</div>	
+        <img id="qzimage" ng-src="{{Question.picture}}" onclick="quizApp.StudyImage_OnClick()"></img>				
+	</div>	
 	<table class="quizoptiontable">
 			<tr>
+				<th rowspan="2">
+					<div id="imgzoom"  class="wingdtextbutton" ng-click="btnHome_OnClick()">
+						&#x0026;
+					</div>
+				</th>
 				<th>
 					<span style="font-size: 1.5em;">S</span>
 				</th>
@@ -32,8 +40,11 @@
 				<th>
 					<span style="font-size: 1.5em;">T</span>
 				</th>
+				<th>
+					<span style="font-size: 1.5em;">C</span>
+				</th>
 				<th rowspan="2">
-					<div id="imgzoom" onclick="quizApp.ImageZoom_OnClick()">
+					<div id="imgzoom"  class="wingdtextbutton" onclick="quizApp.ImageZoom_OnClick()">
 						&#x00F6;
 					</div>
 				</th>
@@ -57,6 +68,12 @@
 						<span  class="textcheck" ng-click="MultipleChoiceMode_OnClick()"  ng-show="!MultipleChoiceMode" >☐</span>
 					</span>
 				</td>
+				<td>
+					<span title="Stop until you've answered correctly">
+						<span  class="textcheck" ng-click="StopOnIncorrectAnswer_OnClick()" ng-show="StopOnIncorrectAnswer">☑</span>
+						<span  class="textcheck" ng-click="StopOnIncorrectAnswer_OnClick()"  ng-show="!StopOnIncorrectAnswer" >☐</span>
+					</span>
+				</td>
 			</tr>
 		</table>
 	<div class="score">
@@ -66,13 +83,13 @@
         {{Question.question}}
     </div>
 	<div class="answer">
-        <div ng-class="lastResult.cssClass" style="padding: 10px">
+        <div ng-class="lastResult.cssClass" style="padding: 5px">
 			<div class="answerwingding" ng-show="lastResult.correct" style="font-family:Wingdings">&#x004a;</div>
 			<div class="answerwingding" ng-show="lastResult.correct == false" style="font-family:Wingdings">
 			<span ng-show="(Score()) >= 80.00">&#x004b;</span>
 			<span ng-show="(Score()) < 80.00">&#x004c;</span>
 			</div>
-			{{ lastResult.msg}}
+			
 		</div>
 		<div>
 			<span ng-show="StudyMode" >{{ Question.answer}}</span>
@@ -80,15 +97,13 @@
 		</div>
     </div>
     <div class="answerbuttondiv" ng-show="!MultipleChoiceMode">
-		      
-			<span class="collectionOfButtons" ng-repeat="ans in lstAnswers">
-				<input class="answerbuttons" type="button" ng-click="TestAnswer(ans.qid)" value="{{ ans.answer }}">
-			</span>
-		
+		<span class="collectionOfButtons" ng-repeat="ans in lstAnswers">
+			<input class="answerbuttons" type="button" ng-click="TestAnswer(ans.qid)" value="{{ ans.answer }}">
+		</span>
 	</div>
 	<div class="answertextdiv" ng-show="MultipleChoiceMode">
 		<div class="answerbuttondiv">
-			<input type="text" id="txtAnswer" ng-model="txtAnswer"  class="answertext" size="80"></input>
+			<input type="text" id="txtAnswer" ng-model="$parent.txtAnswer"  class="answertext" size="80"></input>
 		</div>
 		<div class="answerbuttondiv">
 			<input id="btnAnswer" type="button" class="answerbuttons"  ng-click="btnTestAnswer_OnClick()" value="Answer"> </input>
@@ -97,18 +112,14 @@
 </div>
 <div class="container" ng-if="MenuMode">
 	
-<a class="menulink" href="?v=zodiacalmonths">Zodiac Months</a>
-<a class="menulink" href="?v=zodiacwithintheelements">Element Zodiacs</a>
+<div ng-click="$parent.ShowQuizByViewName('zodiacalmonths')">Zodiac Months</div>
+<div ng-click="$parent.ShowQuizByViewName('zodiacwithintheelements')">Element Zodiacs</div>
 
 </div>
-  <!-- <script src="jquery-3.1.1.min.js"></script>  
-  <script src="angular.min.js"></script>   -->
   <script src="library.js"></script>
   <script src="angular-route.js"></script>
   <script src="app.js"></script>    
   <script src="db.js"></script>
   <script src="quizController.js"></script>
-  <script type="text/javascript" >
-  </script>
 </body>
 </html>

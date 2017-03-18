@@ -1,12 +1,14 @@
 
-app.controller("quizController", ['$scope', '$routeParams', 'dbFactory', function($scope, $routeParams, dbFactory){
+app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFactory', function($scope, $interval, $routeParams, dbFactory){
     
 	//public
+	$scope.NumOfChoices = 4;
     $scope.SequentialMode = false;
     $scope.StudyMode = false;
-    $scope.NumOfChoices = 4;
 	$scope.MultipleChoiceMode = false;
+	$scope.StopOnIncorrectAnswer = false;
 	$scope.txtAnswer = "";
+	
 	//privates
 	$scope.CorrectAnswers = 0;
     $scope.IncorrectAnswers = 0;
@@ -25,27 +27,55 @@ app.controller("quizController", ['$scope', '$routeParams', 'dbFactory', functio
 	};
     
     $scope.init = function(){
-		var view = window.location.search.toLowerCase().split('v=')[1];			
+		var view = window.location.search.toLowerCase().split('v=')[1];
 		
-		if(typeof(view) != 'undefined')
+		if(typeof(view) == 'undefined')
+			$scope.SetView("menumode");
+		else {			
+			$scope.SetView(view);
+			$scope.ShowQuizByViewName(view);			
+		}
+    };
+    
+	$scope.SetView = function(inView){
+		
+		if(inView!='menumode')
 			$scope.MenuMode = false;
 		
-		switch(view){
+		switch(inView.toLowerCase()){
 			case "zodiacalmonths":{
 				$scope.db = dbFactory.ZodiacalMonths();
 				break;
 			}
-			case 'zodiacwithintheelements' :{
+			case 'zodiacwithintheelements':{
 				$scope.db = dbFactory.ZodiacwithintheElements();
 				break;
 			}
+			case 'menumode':
+			default:{				
+				$scope.MenuMode = true;			
+				break;
+			}
 		}
-		if($scope.MenuMode)
-			return;
-		$scope.CalculateNumberOfChoices();
-        $scope.LoadNextQuestion();
-    }
-    
+	};
+	
+	$scope.ShowQuizByViewName = function(aview){
+			$scope.SetView(aview);
+			$scope.CalculateNumberOfChoices();
+			$scope.LoadNextQuestion();
+			
+			var tmr_cnt = 0;
+			var WindowResize_tmr = $interval(function(){
+				tmr_cnt++;
+				if($("#qzimage")[0] != 'undefined' || tmr_cnt > 30){
+					quizApp.Window_OnResize();
+					$interval.cancel(WindowResize_tmr);
+				}
+			}, 100);
+			
+				
+	};
+	
 	$scope.CalculateNumberOfChoices = function(){		
 		if($scope.db.length > 3)
 		{
@@ -65,12 +95,15 @@ app.controller("quizController", ['$scope', '$routeParams', 'dbFactory', functio
 		return dbFactory.Title;
 	};
 	
-	$scope.Score = function() {
+	$scope.Score = function(){
 		if ($scope.CorrectAnswers + $scope.IncorrectAnswers == 0)
 			return 100;
 		return (($scope.CorrectAnswers / ($scope.CorrectAnswers + $scope.IncorrectAnswers)) * 100);
 	}
 	
+	$scope.btnHome_OnClick = function(){
+		$scope.SetView("menumode");		
+	};
 	$scope.SequentialMode_OnClick = function() {
 		$scope.SequentialMode = !$scope.SequentialMode
 		if($scope.SequentialMode){
@@ -78,7 +111,9 @@ app.controller("quizController", ['$scope', '$routeParams', 'dbFactory', functio
 			$scope.LoadNextQuestion();
 		}
 	};
-	
+	$scope.StopOnIncorrectAnswer_OnClick = function(){
+		$scope.StopOnIncorrectAnswer = !$scope.StopOnIncorrectAnswer;
+	}
 	$scope.StudyImage_OnClick = function() {	
 		
 	};
@@ -100,13 +135,13 @@ app.controller("quizController", ['$scope', '$routeParams', 'dbFactory', functio
 			};
 	};	
 	
-	$scope.btnTestAnswer_OnClick = function() {
-		var isRight = $scope.txtAnswer.toLowerCase().indexOf($scope.Question.answer.toLowerCase()) > -1;
+	$scope.btnTestAnswer_OnClick = function() {						
+		var isRight = $scope.txtAnswer.toLowerCase().indexOf($scope.Question.answer.toLowerCase()) > -1;		
+		
 		$scope.txtAnswer = "";
-		
-		$scope.SetAnswerState(isRight, $scope.Question);
-		
-		$scope.LoadNextQuestion();
+		$scope.SetAnswerState(isRight, $scope.Question);		
+		if(isRight || !$scope.StopOnIncorrectAnswer)
+			$scope.LoadNextQuestion();
 	};
 	
 	$scope.MultipleChoiceMode_OnClick = function() {
@@ -206,24 +241,31 @@ app.controller("quizController", ['$scope', '$routeParams', 'dbFactory', functio
     $scope.init();
 }]);
 
-
 var quizApp = (function(){
 	var self = this;
 	var imageWidth = 10;
 	var imageHeight = 10;
 	
-	function Window_OnResize(){
+	function Window_OnResize(){		
+		var imgdiv = $("#imagediv");
+		
+		if(imgdiv.attr("data-zoomed") != "false")
+			return;		
+		
 		var dimensions = RecalculateImageSize();
 		SetImageSize(dimensions.width, dimensions.height);
+		console.log(dimensions);
+		//SetImageSize(-1, -1);
 		var ih = $("#qzimage")[0].clientHeight;		
 		ResizeViewPort(dimensions.width, ih);
+		CorrectImageViewerCSS();
 	};
 	function RecalculateImageSize(){			
 		var qzcontainer = $("#qzcontainer")[0];
 		self.imageWidth = qzcontainer.clientWidth / 1.5;
 		
-		if(self.imageWidth > $("#shadowimg")[0].naturalWidth)
-			self.imageWidth = $("#shadowimg")[0].naturalWidth;
+		if(self.imageWidth > $("#qzimage")[0].naturalWidth)
+			self.imageWidth = $("#qzimage")[0].naturalWidth;
 		
 		/*self.imageHeight = qzcontainer.clientHeight /3;*/
 		return {
@@ -234,8 +276,8 @@ var quizApp = (function(){
 	
 	function SetImageSize(width, height){
 		var qz = $("#qzimage");			
-		qz.css("width", self.imageWidth);
-		qz.css("height", "auto");
+		qz.css("width", ((width != -1)? width + "px": "auto"));
+		qz.css("height", ((height != -1)? height + "px": "auto"));
 		return;
 	};
 	
@@ -246,20 +288,63 @@ var quizApp = (function(){
 		$("#imagediv").css("height", height);
 		return;
 	};
+	
+	function getScreenHeight(){
+		return window.innerHeight|| d.getElementsByTagName('body')[0].clientHeight|| document.clientHeight; 
+	}
+	
 	function ImageZoom_OnClick(){		
+		var shadowimg = $("#imagediv");
+		var newshow = shadowimg.attr("data-zoomed") == "false" ? true: false;
+		shadowimg.attr("data-zoomed", newshow);
+		var container = $("#qzcontainer")[0];
+		var qzimage = $("#qzimage");
+		var screenHeight = getScreenHeight() - 100;		
+		
+		if(newshow){			
+			shadowimg.css("display", "block");
+			shadowimg.css("position", "absolute");
+			shadowimg.css("left", "0px");
+			shadowimg.css("top", "0px");
+			//shadowimg.css("width", container.clientWidth - 5 +"px");
+			if(qzimage.clientWidth > qzimage.clientHeight)
+			{				
+				SetImageSize((container.clientWidth * 2), -1);
+				ResizeViewPort(qzimage.clientWidth, ih);
+			} else {
+				$("#viewportimgzoom").css("display", "block");
+				SetImageSize(-1, screenHeight);
+				ResizeViewPort(qzimage[0].clientWidth, screenHeight+30);
+			}
+			
+			//var ih = $("#qzimage")[0].clientHeight;
+			//shadowimg.css("height", container.clientHeight - 5 + "px");
+		} else {
+			$("#viewportimgzoom").css("display", "none");
+			shadowimg.css("display", "block");
+			shadowimg.css("position", "relative");
+			SetImageSize(-1, -1);
+			//ResizeViewPort(qzimage.clientWidth, screenHeight);
+			Window_OnResize();			
+			//shadowimg.css("height", "2px");
+		}
+		CorrectImageViewerCSS();
+		return;
+	};
+	
+	function ImageZoom_OnClickB(){		
 		var shadowimg = $("#shadowimg");
 		var newshow = shadowimg.attr("data-show") == "false" ? true: false;
 		var container = $("#qzcontainer")[0];
-		
+		var qzimage = $("#qzimage");
 		shadowimg.attr("data-show", newshow);
 		
 		if(newshow){
 			shadowimg.css("display", "block");
 			shadowimg.css("position", "absolute");
 			shadowimg.css("left", "0px");
-			shadowimg.css("top", "0px");
-			shadowimg.css("width", container.clientWidth - 5 +"px");
-			//shadowimg.css("height", container.clientHeight - 5 + "px");
+			shadowimg.css("top", "0px");									
+			shadowimg.css("width", container.clientWidth - 5 + "px");
 		} else {
 			shadowimg.css("display", "none");
 			shadowimg.css("position", "absolute");
@@ -271,12 +356,27 @@ var quizApp = (function(){
 		
 		return;
 	};
+	
+	function CorrectImageViewerCSS(){
+		CorrectStudyImageScrollPosition();
+		CorrectViewPortImgZoomWidth();
+	};
+	function CorrectStudyImageScrollPosition(){
+		var curobj = $("#imagediv")[0];
+		if(curobj.scrollLeft != 0)
+			curobj.scrollLeft = curobj.clientWidth;
+		return;
+	};
+	function CorrectViewPortImgZoomWidth(){
+		var wid = $("#qzimage")[0].clientWidth;		
+		$("#viewportimgzoom").css("width", wid + "px");		
+		return;
+	};
 	function StudyImage_OnClick(){
 		var curobj = $("#imagediv")[0];
 		var curpos = curobj.scrollLeft;
-
 		if(curpos == 0)
-			curobj.scrollLeft = self.imageWidth / 2;
+			curobj.scrollLeft = curobj.clientWidth;
 		else
 			curobj.scrollLeft = 0;
 		return;
@@ -288,7 +388,8 @@ var quizApp = (function(){
 		ImageZoom_OnClick: ImageZoom_OnClick
 	};
 })();
-	
+
+
 $(document).ready(function(){
 
 	$('#txtAnswer').keyup(function(e){
@@ -300,7 +401,7 @@ $(document).ready(function(){
 	$(window).on('resize', function(){				
 		quizApp.Window_OnResize();
 	});
-	$("#shadowimg").on('load', function(){				
+	$("#qzimage").on('load', function(){	
 		quizApp.Window_OnResize();
 	});
 		

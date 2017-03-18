@@ -19,13 +19,12 @@ html ,body{
 }
 #imagediv image {	
 }
-#imgzoom{
+.imgzoom{
 	font-family: WingDings;
 	font-size: 2em;
+	cursor: pointer;
 }
-.answerwingding{
-	/*font-size: 4em;*/
-}
+
 .container {
 	width: 98%;
 }
@@ -33,11 +32,20 @@ html ,body{
 	color: white;
 	background-color: green;
 }
-
+.displaynone {
+	display: none;
+}
 .incorrect {
 	color: white;
 	background-color: red;
 }
+
+.wingdtextbutton{
+	font-family: WingDings;
+	font-size: 2em;
+	cursor: pointer;
+}
+
 .answerbuttondiv {	
 	text-align: center;
 	width: 98%;	
@@ -97,7 +105,7 @@ html ,body{
 	text-align: center;	
 }
 .answerwingding{
-	font-size: 6em;
+	font-size: 4em;
 }
 .studymode {
 	background-color: #FFFFFF;
