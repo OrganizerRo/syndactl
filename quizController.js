@@ -81,7 +81,14 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		if($scope.db.length > 8)
 		{
 			$scope.NumOfChoices = 4
-		}		
+		}
+		var ans = [];
+		$scope.db.filter(function(o,i,a){
+			if(ans.indexOf(o.answer) == -1)
+				ans.push(o.answer);
+		});
+		if(ans.length < $scope.NumOfChoices)
+			$scope.NumOfChoices = ans.length;
 	};
 	
 	$scope.dbTitle = function(){
@@ -242,34 +249,43 @@ var quizApp = (function(){
 	var imageHeight = 10;
 	
 	function Window_OnResize(){		
-		var imgdiv = $("#imagediv");
-		
+		var multiplier =  1;
+		var imgdiv = $("#imagediv");		
 		if(imgdiv.attr("data-zoomed") != "false")
 			return;		
 		
 		var dimensions = RecalculateImageSize();
-		SetImageSize(dimensions.width, dimensions.height);
+		SetImageSize(dimensions.width, -1);
+		if($("#qzimage")[0].naturalWidth < 473){
+			multiplier = 2;
+		}
+		dimensions.height =  $("#qzimage")[0].clientHeight + 20;
 		
-		//SetImageSize(-1, -1);
-		var ih = $("#qzimage")[0].clientHeight;		
-		ResizeViewPort(dimensions.width, ih);
+		ResizeViewPort(dimensions.width * multiplier, dimensions.height);
 		CorrectImageViewerCSS();
 	};
 	
 	function RecalculateImageSize(){			
 		var qzcontainer = $("#qzcontainer")[0];
-		self.imageWidth = qzcontainer.clientWidth / 1.5;
-		
-		if(self.imageWidth > $("#qzimage")[0].naturalWidth)
+		var qimg = $("#qzimage");
+		if (qimg[0].naturalWidth < 473){
+			self.imageWidth = qzcontainer.clientWidth / 4;	
+		} else {
+			self.imageWidth = qzcontainer.clientWidth / 1.5;
+		}
+		if(self.imageWidth > qimg[0].naturalWidth && qimg[0].naturalWidth > 472)
 			self.imageWidth = $("#qzimage")[0].naturalWidth;
+		if (qimg[0].naturalWidth > 373)
+			self.imageHeight = (qimg[0].naturalHeight + 20)/ (qimg[0].clientWidth / self.imageWidth) 
+		else
+			self.imageHeight = qimg[0].clientHeight;
 		
-		/*self.imageHeight = qzcontainer.clientHeight /3;*/
 		return {
 			width: self.imageWidth,
 			height: self.imageHeight
 		};
 	};
-	
+		
 	function SetImageSize(width, height){
 		var qz = $("#qzimage");			
 		qz.css("width", ((width != -1)? width + "px": "auto"));
@@ -288,6 +304,10 @@ var quizApp = (function(){
 	
 	function getScreenHeight(){
 		return window.innerHeight|| d.getElementsByTagName('body')[0].clientHeight|| document.clientHeight; 
+	}
+	
+	function getScreenWidth(){
+		return window.innerWidth|| d.getElementsByTagName('body')[0].clientWidth || document.clientWidth; 
 	}
 	
 	function ImageZoom_OnClick(){		
@@ -314,7 +334,7 @@ var quizApp = (function(){
 				ResizeViewPort(qzimage[0].clientWidth, screenHeight+30);
 			}
 			
-			if(shadowimg[0].clientWidth < getScreenHeight())
+			if(shadowimg[0].clientWidth < getScreenWidth())
 				shadowimg.css("left", (getScreenHeight() /2) - (shadowimg[0].clientWidth / 2) + "px");
 			
 		} else {
