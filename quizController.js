@@ -28,7 +28,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
     
     $scope.init = function(){
 		var view = window.location.search.toLowerCase().split('v=')[1];
-		
+	
 		if(typeof(view) == 'undefined')
 			$scope.SetView("menumode");
 		else {			
@@ -43,46 +43,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			$scope.MenuMode = false;
 		
 		switch(inView){
-			case 'VedicPlanetsinEnglish' :{
-				$scope.db = dbFactory.VedicPlanetsinEnglish();
-				break;
-			}
-			case 'ZodiacwithintheElements' :{
-					$scope.db = dbFactory.ZodiacwithintheElements();
-					break;
-				}
-			case 'Zodiacaland3Qualities' :{
-					$scope.db = dbFactory.Zodiacaland3Qualities();
-					break;
-				}
-			case 'ZodiacalAttributes' :{
-					$scope.db = dbFactory.ZodiacalAttributes();
-					break;
-				}
-			case 'ZodiacalDates' :{
-					$scope.db = dbFactory.ZodiacalDates();
-					break;
-				}
-			case 'ZodiacalGlyphs' :{
-					$scope.db = dbFactory.ZodiacalGlyphs();
-					break;
-				}
-			case 'ZodiacalMiscellaneousSymbols' :{
-					$scope.db = dbFactory.ZodiacalMiscellaneousSymbols();
-					break;
-				}
-			case 'ZodiacalMonths' :{
-					$scope.db = dbFactory.ZodiacalMonths();
-					break;
-				}
-			case 'ZodiacalPlanetaryGlyphs' :{
-					$scope.db = dbFactory.ZodiacalPlanetaryGlyphs();
-					break;
-				}
-			case 'ZodiacalRulers(Traditional)' :{
-				$scope.db = dbFactory.ZodiacalRulers(Traditional)();
-				break;
-			}
+			/* Set View Controllers here*/
 			case 'menumode':
 			default:{				
 				$scope.MenuMode = true;			
@@ -136,6 +97,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	$scope.btnHome_OnClick = function(){
 		$scope.SetView("menumode");		
 	};
+	
 	$scope.SequentialMode_OnClick = function() {
 		$scope.SequentialMode = !$scope.SequentialMode
 		if($scope.SequentialMode){
@@ -143,9 +105,11 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			$scope.LoadNextQuestion();
 		}
 	};
+	
 	$scope.StopOnIncorrectAnswer_OnClick = function(){
 		$scope.StopOnIncorrectAnswer = !$scope.StopOnIncorrectAnswer;
 	}
+	
 	$scope.StudyImage_OnClick = function() {	
 		
 	};
@@ -396,17 +360,20 @@ var quizApp = (function(){
 		CorrectStudyImageScrollPosition();
 		CorrectViewPortImgZoomWidth();
 	};
+	
 	function CorrectStudyImageScrollPosition(){
 		var curobj = $("#imagediv")[0];
 		if(curobj.scrollLeft != 0)
 			curobj.scrollLeft = curobj.clientWidth;
 		return;
 	};
+	
 	function CorrectViewPortImgZoomWidth(){
 		var wid = $("#qzimage")[0].clientWidth;		
 		$("#viewportimgzoom").css("width", wid + "px");		
 		return;
 	};
+	
 	function StudyImage_OnClick(){
 		var curobj = $("#imagediv")[0];
 		var curpos = curobj.scrollLeft;
@@ -416,6 +383,7 @@ var quizApp = (function(){
 			curobj.scrollLeft = 0;
 		return;
 	};
+	
 	return {
 		Window_OnResize: Window_OnResize,
 		RecalculateImageSize : RecalculateImageSize,
@@ -424,7 +392,6 @@ var quizApp = (function(){
 	};
 })();
 
-
 $(document).ready(function(){
 
 	$('#txtAnswer').keyup(function(e){
@@ -432,7 +399,6 @@ $(document).ready(function(){
 			$('#btnAnswer').click();
 		} 
 	});
-
 	$(window).on('resize', function(){				
 		quizApp.Window_OnResize();
 	});
