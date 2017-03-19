@@ -9,14 +9,3 @@ app.filter('pct', function () {
     }
 });
 
-app.config(function($routeProvider){
-	$routeProvider
-	.when('/', {
-		templateUrl: 'menu.html',
-		controller : 'quizController'
-	})
-	.when('/?vw=ZodiacalMonths', {
-		templateUrl: 'quizView.html',
-		controller : 'quizController'
-	})
-});
