@@ -24,7 +24,12 @@ html ,body{
 	font-size: 2em;
 	cursor: pointer;
 }
-
+.menudivs{
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	cursor: pointer;
+}
 .container {
 	width: 98%;
 }

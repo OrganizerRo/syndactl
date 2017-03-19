@@ -19,8 +19,8 @@
 <div id="qzcontainer" class="container" ng-if="MenuMode==false" >
     <div id="imagediv" data-zoomed="false">
 		<div id="viewportimgzoom" class="wingdtextbutton" style="display: none;" onclick="quizApp.ImageZoom_OnClick()">			
-			<div style="float: left;">&#x00F8;</div>
-			<div style="float: right;">&#x00F7;</div>			
+			<div style="float: left; width: 50%;">&#x00F8;</div>
+			<div style="float: right; width: 50%;">&#x00F7;</div>			
 		</div>	
         <img id="qzimage" ng-src="{{Question.picture}}" onclick="quizApp.StudyImage_OnClick()"></img>				
 	</div>	
@@ -111,10 +111,18 @@
 	</div>
 </div>
 <div class="container" ng-if="MenuMode">
-	
-<div ng-click="$parent.ShowQuizByViewName('zodiacalmonths')">Zodiac Months</div>
-<div ng-click="$parent.ShowQuizByViewName('zodiacwithintheelements')">Element Zodiacs</div>
-
+<div class="menudivs">
+<div ng-click="$parent.ShowQuizByViewName('VedicPlanetsinEnglish')">Vedic  Planets in English</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacwithintheElements')">Zodiac within the Elements</div>
+<div ng-click="$parent.ShowQuizByViewName('Zodiacaland3Qualities')">Zodiacal and 3 Qualities</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalAttributes')">Zodiacal Attributes</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalDates')">Zodiacal Dates</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalGlyphs')">Zodiacal Glyphs</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalMiscellaneousSymbols')">Zodiacal Miscellaneous Symbols</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalMonths')">Zodiacal Months</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalPlanetaryGlyphs')">Zodiacal Planetary Glyphs</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalRulers(Traditional)')">Zodiacal Rulers (Traditional)</div>	
+</div>
 </div>
   <script src="library.js"></script>
   <script src="angular-route.js"></script>

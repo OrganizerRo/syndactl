@@ -42,13 +42,45 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		if(inView!='menumode')
 			$scope.MenuMode = false;
 		
-		switch(inView.toLowerCase()){
-			case "zodiacalmonths":{
-				$scope.db = dbFactory.ZodiacalMonths();
+		switch(inView){
+			case 'VedicPlanetsinEnglish' :{
+				$scope.db = dbFactory.VedicPlanetsinEnglish();
 				break;
 			}
-			case 'zodiacwithintheelements':{
-				$scope.db = dbFactory.ZodiacwithintheElements();
+			case 'ZodiacwithintheElements' :{
+					$scope.db = dbFactory.ZodiacwithintheElements();
+					break;
+				}
+			case 'Zodiacaland3Qualities' :{
+					$scope.db = dbFactory.Zodiacaland3Qualities();
+					break;
+				}
+			case 'ZodiacalAttributes' :{
+					$scope.db = dbFactory.ZodiacalAttributes();
+					break;
+				}
+			case 'ZodiacalDates' :{
+					$scope.db = dbFactory.ZodiacalDates();
+					break;
+				}
+			case 'ZodiacalGlyphs' :{
+					$scope.db = dbFactory.ZodiacalGlyphs();
+					break;
+				}
+			case 'ZodiacalMiscellaneousSymbols' :{
+					$scope.db = dbFactory.ZodiacalMiscellaneousSymbols();
+					break;
+				}
+			case 'ZodiacalMonths' :{
+					$scope.db = dbFactory.ZodiacalMonths();
+					break;
+				}
+			case 'ZodiacalPlanetaryGlyphs' :{
+					$scope.db = dbFactory.ZodiacalPlanetaryGlyphs();
+					break;
+				}
+			case 'ZodiacalRulers(Traditional)' :{
+				$scope.db = dbFactory.ZodiacalRulers(Traditional)();
 				break;
 			}
 			case 'menumode':
@@ -67,7 +99,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			var tmr_cnt = 0;
 			var WindowResize_tmr = $interval(function(){
 				tmr_cnt++;
-				if($("#qzimage")[0] != 'undefined' || tmr_cnt > 30){
+				if($("#qzimage")[0] != 'undefined' || tmr_cnt > 100){
 					quizApp.Window_OnResize();
 					$interval.cancel(WindowResize_tmr);
 				}
@@ -254,12 +286,13 @@ var quizApp = (function(){
 		
 		var dimensions = RecalculateImageSize();
 		SetImageSize(dimensions.width, dimensions.height);
-		console.log(dimensions);
+		
 		//SetImageSize(-1, -1);
 		var ih = $("#qzimage")[0].clientHeight;		
 		ResizeViewPort(dimensions.width, ih);
 		CorrectImageViewerCSS();
 	};
+	
 	function RecalculateImageSize(){			
 		var qzcontainer = $("#qzcontainer")[0];
 		self.imageWidth = qzcontainer.clientWidth / 1.5;
@@ -286,6 +319,7 @@ var quizApp = (function(){
 		$("#imagediv").css("overflow-y", "hidden");		
 		$("#imagediv").css("width", imageWidthParm / 2);
 		$("#imagediv").css("height", height);
+		
 		return;
 	};
 	
@@ -303,12 +337,12 @@ var quizApp = (function(){
 		
 		if(newshow){			
 			shadowimg.css("display", "block");
-			shadowimg.css("position", "absolute");
-			shadowimg.css("left", "0px");
+			shadowimg.css("position", "absolute");			
 			shadowimg.css("top", "0px");
-			//shadowimg.css("width", container.clientWidth - 5 +"px");
+			shadowimg.css("left", "0px");
+			
 			if(qzimage.clientWidth > qzimage.clientHeight)
-			{				
+			{		
 				SetImageSize((container.clientWidth * 2), -1);
 				ResizeViewPort(qzimage.clientWidth, ih);
 			} else {
@@ -317,16 +351,17 @@ var quizApp = (function(){
 				ResizeViewPort(qzimage[0].clientWidth, screenHeight+30);
 			}
 			
-			//var ih = $("#qzimage")[0].clientHeight;
-			//shadowimg.css("height", container.clientHeight - 5 + "px");
+			if(shadowimg[0].clientWidth < getScreenHeight())
+				shadowimg.css("left", (getScreenHeight() /2) - (shadowimg[0].clientWidth / 2) + "px");
+			
 		} else {
 			$("#viewportimgzoom").css("display", "none");
+			shadowimg.css("left", "0px");
 			shadowimg.css("display", "block");
 			shadowimg.css("position", "relative");
 			SetImageSize(-1, -1);
-			//ResizeViewPort(qzimage.clientWidth, screenHeight);
+			
 			Window_OnResize();			
-			//shadowimg.css("height", "2px");
 		}
 		CorrectImageViewerCSS();
 		return;
