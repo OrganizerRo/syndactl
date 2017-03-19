@@ -141,9 +141,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	};
 	
 	$scope.MultipleChoiceMode_OnClick = function() {
-		$scope.MultipleChoiceMode = !$scope.MultipleChoiceMode; //toggle
-		
-		
+		$scope.MultipleChoiceMode = !$scope.MultipleChoiceMode; //toggle				
 	};
 	
     $scope.Randomize =  function(start, end) {
@@ -159,7 +157,8 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		
 		$scope.SetAnswerState(isRight, $scope.Question);
 		
-		$scope.LoadNextQuestion();		
+		if(isRight || !$scope.StopOnIncorrectAnswer)
+			$scope.LoadNextQuestion();		
     };
     
 	$scope.SetAnswerState = function(isRight, inQuestion){		
@@ -184,9 +183,9 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
     
     $scope.GetRandomAnswer = function(NotAllowedAnswers){
         var allowedAnswers = $scope.db.filter(function(co, ix, ar){
-            return NotAllowedAnswers.find(function(o,i,r){
+            return NotAllowedAnswers.filter(function(o,i,r){
 				return o.answer == co.answer;
-			}) == undefined;
+			}).length == 0; //wasn't found
         });				        
         var rndQuestionIX = $scope.Randomize(0, allowedAnswers.length - 1);        
 		
