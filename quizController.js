@@ -43,52 +43,8 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			$scope.MenuMode = false;
 		
 		switch(inView){
-<<<<<<< master
-=======
 			/* Set View Controllers here*/
->>>>>>> local
-			case 'VedicPlanetsinEnglish' :{
-				$scope.db = dbFactory.VedicPlanetsinEnglish();
-				break;
-			}
 			case 'ZodiacwithintheElements' :{
-<<<<<<< master
-					$scope.db = dbFactory.ZodiacwithintheElements();
-					break;
-				}
-			case 'Zodiacaland3Qualities' :{
-					$scope.db = dbFactory.Zodiacaland3Qualities();
-					break;
-				}
-			case 'ZodiacalAttributes' :{
-					$scope.db = dbFactory.ZodiacalAttributes();
-					break;
-				}
-			case 'ZodiacalDates' :{
-					$scope.db = dbFactory.ZodiacalDates();
-					break;
-				}
-			case 'ZodiacalGlyphs' :{
-					$scope.db = dbFactory.ZodiacalGlyphs();
-					break;
-				}
-			case 'ZodiacalMiscellaneousSymbols' :{
-					$scope.db = dbFactory.ZodiacalMiscellaneousSymbols();
-					break;
-				}
-			case 'ZodiacalMonths' :{
-					$scope.db = dbFactory.ZodiacalMonths();
-					break;
-				}
-			case 'ZodiacalPlanetaryGlyphs' :{
-					$scope.db = dbFactory.ZodiacalPlanetaryGlyphs();
-					break;
-				}
-			case 'ZodiacalRulers(Traditional)' :{
-				$scope.db = dbFactory.ZodiacalRulers(Traditional)();
-				break;
-			}
-=======
 				$scope.db = dbFactory.ZodiacwithintheElements();
 				break;
 			}
@@ -124,8 +80,6 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 				$scope.db = dbFactory.ZodiacalRulersTraditional();
 				break;
 			}
-
->>>>>>> local
 			case 'menumode':
 			default:{				
 				$scope.MenuMode = true;			
