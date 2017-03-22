@@ -70,6 +70,8 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	};
 	
 	$scope.CalculateNumberOfChoices = function(){		
+		var distinctAnswers =[];
+		
 		if($scope.db.length > 3)
 		{
 			$scope.NumOfChoices = 2
@@ -82,14 +84,24 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		{
 			$scope.NumOfChoices = 4
 		}
+		
+		distinctAnswers = $scope.getDistinctAnswers();
+		
+		if ($scope.NumOfChoices > distinctAnswers.length)
+			$scope.NumOfChoices = distinctAnswers.length;
+	};
+	
+	$scope.getDistinctAnswers = function(){
 		var ans = [];
+		
 		$scope.db.filter(function(o,i,a){
 			if(ans.indexOf(o.answer) == -1)
 				ans.push(o.answer);
 		});
-		if(ans.length < $scope.NumOfChoices)
-			$scope.NumOfChoices = ans.length;
-	};
+		return ans;
+		// if(ans.length < $scope.NumOfChoices)
+			// $scope.NumOfChoices = ans.length;
+	};	
 	
 	$scope.dbTitle = function(){
 		return dbFactory.Title;
