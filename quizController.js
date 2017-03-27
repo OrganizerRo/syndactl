@@ -60,11 +60,11 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			var tmr_cnt = 0;
 			var WindowResize_tmr = $interval(function(){
 				tmr_cnt++;
-				if($("#qzimage")[0] != 'undefined' || tmr_cnt > 100){
+				if($("#qzimage")[0] != 'undefined' || tmr_cnt > 1500){
 					quizApp.Window_OnResize();
 					$interval.cancel(WindowResize_tmr);
 				}
-			}, 100);
+			}, 150);
 			
 				
 	};
