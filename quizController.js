@@ -19,7 +19,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	$scope.lastResult = {};
 	$scope.ResponseMessage = "";
     $scope.MenuMode = true;
-	
+	$scope.HasImageAnswers = dbFactory.HasImageAnswers();
 	$scope.lastResult = { 
 		correct: true,
 		msg: "Good Luck",
@@ -44,42 +44,44 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		
 		switch(inView){
 			/* Set View Controllers here*/
-			case 'ZodiacwithintheElements' :{
-				$scope.db = dbFactory.ZodiacwithintheElements();
-				break;
-			}
-			case 'Zodiacaland3Qualities' :{
-				$scope.db = dbFactory.Zodiacaland3Qualities();
-				break;
-			}
-			case 'ZodiacalAttributes' :{
-				$scope.db = dbFactory.ZodiacalAttributes();
-				break;
-			}
-			case 'ZodiacalDates' :{
-				$scope.db = dbFactory.ZodiacalDates();
-				break;
-			}
-			case 'ZodiacalGlyphs' :{
-				$scope.db = dbFactory.ZodiacalGlyphs();
-				break;
-			}
-			case 'ZodiacalMiscellaneousSymbols' :{
-				$scope.db = dbFactory.ZodiacalMiscellaneousSymbols();
-				break;
-			}
-			case 'ZodiacalMonths' :{
-				$scope.db = dbFactory.ZodiacalMonths();
-				break;
-			}
-			case 'ZodiacalPlanetaryGlyphs' :{
-				$scope.db = dbFactory.ZodiacalPlanetaryGlyphs();
-				break;
-			}
-			case 'ZodiacalRulersTraditional' :{
-				$scope.db = dbFactory.ZodiacalRulersTraditional();
-				break;
-			}
+			
+			case 'Brass_Ranges' :{
+                $scope.db = dbFactory.Brass_Ranges();
+                break;
+            }
+			case 'FifthsCircle' :{
+							$scope.db = dbFactory.FifthsCircle();
+							break;
+						}
+			case 'InstrumentRanges' :{
+							$scope.db = dbFactory.InstrumentRanges();
+							break;
+						}
+			case 'KeyRecognition' :{
+							$scope.db = dbFactory.KeyRecognition();
+							break;
+						}
+			case 'KeyRecognition_Major' :{
+							$scope.db = dbFactory.KeyRecognition_Major();
+							break;
+						}
+			case 'KeyRecognition_Minor' :{
+							$scope.db = dbFactory.KeyRecognition_Minor();
+							break;
+						}
+			case 'String_Ranges' :{
+							$scope.db = dbFactory.String_Ranges();
+							break;
+						}
+			case 'VocalRanges' :{
+							$scope.db = dbFactory.VocalRanges();
+							break;
+						}
+			case 'WoodWind_Ranges' :{
+							$scope.db = dbFactory.WoodWind_Ranges();
+							break;
+						}
+			
 			case 'menumode':
 			default:{				
 				$scope.MenuMode = true;			
@@ -92,6 +94,8 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			$scope.SetView(aview);
 			$scope.CalculateNumberOfChoices();
 			$scope.LoadNextQuestion();
+			var self = this;
+			var _angularInterval = $interval;
 			
 			var tmr_cnt = 0;
 			var WindowResize_tmr = $interval(function(){
@@ -100,8 +104,8 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 					quizApp.Window_OnResize();
 					$interval.cancel(WindowResize_tmr);
 				}
-			}, 100);
-			
+			}, 100,0,true, $interval);
+			// 1000, 0, true, 2, 5
 				
 	};
 	
@@ -163,6 +167,14 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 				Question: $scope.Question
 			};
 	};	
+	
+	$scope.txtAnswer_KeyUp = function(evt)
+	{
+		if(evt.keyCode == 13)
+		{
+			$scope.btnTestAnswer_OnClick();
+		}
+	};
 	
 	$scope.btnTestAnswer_OnClick = function() {						
 		var isRight = $scope.txtAnswer.toLowerCase().indexOf($scope.Question.answer.toLowerCase()) > -1;		
@@ -277,6 +289,7 @@ var quizApp = (function(){
 	
 	function Window_OnResize(){		
 		var imgdiv = $("#imagediv");
+		var hia = angular.element('#mainbody').scope().HasImageAnswers; // call angular from jquery
 		
 		if(imgdiv.attr("data-zoomed") != "false")
 			return;		
@@ -286,12 +299,14 @@ var quizApp = (function(){
 		
 		//SetImageSize(-1, -1);
 		var ih = $("#qzimage")[0].clientHeight;		
-		ResizeViewPort(dimensions.width, ih);
+		ResizeViewPort(dimensions.width, ih, hia);
 		CorrectImageViewerCSS();
 	};
 	
 	function RecalculateImageSize(){			
 		var qzcontainer = $("#qzcontainer")[0];
+		//alert();
+//		console.log($("#qzimage")[0].naturalWidth);
 		self.imageWidth = qzcontainer.clientWidth / 1.5;
 		
 		if(self.imageWidth > $("#qzimage")[0].naturalWidth)
@@ -311,10 +326,14 @@ var quizApp = (function(){
 		return;
 	};
 	
-	function ResizeViewPort(imageWidthParm,height){
+	function ResizeViewPort(imageWidthParm,height, imageHasHints){
+		var imageHintDivider = 2;
+		
+		imageHintDivider = (imageHasHints == true)? 2 : 1;
+		
 		$("#imagediv").css("overflow-x", "scroll");
 		$("#imagediv").css("overflow-y", "hidden");		
-		$("#imagediv").css("width", imageWidthParm / 2);
+		$("#imagediv").css("width", imageWidthParm / imageHintDivider);
 		$("#imagediv").css("height", height);
 		
 		return;
@@ -424,11 +443,11 @@ var quizApp = (function(){
 
 $(document).ready(function(){
 
-	$('#txtAnswer').keyup(function(e){
-		if(e.keyCode == 13){
-			$('#btnAnswer').click();
-		} 
-	});
+	// $('#txtAnswer').keyup(function(e){
+		// if(e.keyCode == 13){
+			// $('#btnAnswer').click();
+		// } 
+	// });
 
 	$(window).on('resize', function(){				
 		quizApp.Window_OnResize();
