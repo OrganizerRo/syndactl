@@ -19,7 +19,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	$scope.lastResult = {};
 	$scope.ResponseMessage = "";
     $scope.MenuMode = true;
-	$scope.HasImageAnswers = dbFactory.HasImageAnswers();
+	$scope.HasImageAnswers = false; //dbFactory.HasImageAnswers();
 	$scope.lastResult = { 
 		correct: true,
 		msg: "Good Luck",
@@ -81,7 +81,10 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 							$scope.db = dbFactory.WoodWind_Ranges();
 							break;
 						}
-			
+			case 'Sight_Reading_1' :{
+                $scope.db = dbFactory.Sight_Reading_1();
+                break;
+            }
 			case 'menumode':
 			default:{				
 				$scope.MenuMode = true;			
@@ -90,7 +93,8 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		}
 	};
 	
-	$scope.ShowQuizByViewName = function(aview){
+	$scope.ShowQuizByViewName = function(aview, hsImageAnswers){
+			$scope.HasImageAnswers = hsImageAnswers;
 			$scope.SetView(aview);
 			$scope.CalculateNumberOfChoices();
 			$scope.LoadNextQuestion();
@@ -168,8 +172,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			};
 	};	
 	
-	$scope.txtAnswer_KeyUp = function(evt)
-	{
+	$scope.txtAnswer_KeyUp = function(evt){
 		if(evt.keyCode == 13)
 		{
 			$scope.btnTestAnswer_OnClick();
@@ -442,12 +445,6 @@ var quizApp = (function(){
 
 
 $(document).ready(function(){
-
-	// $('#txtAnswer').keyup(function(e){
-		// if(e.keyCode == 13){
-			// $('#btnAnswer').click();
-		// } 
-	// });
 
 	$(window).on('resize', function(){				
 		quizApp.Window_OnResize();
