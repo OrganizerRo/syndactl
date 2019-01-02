@@ -105,8 +105,10 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			var WindowResize_tmr = $interval(function(){
 				tmr_cnt++;
 				if($("#qzimage")[0] != 'undefined' || tmr_cnt > 100){
-					quizApp.Window_OnResize();
-					$interval.cancel(WindowResize_tmr);
+					if($("#qzimage")[0].naturalWidth !=0){
+						quizApp.Window_OnResize();
+						$interval.cancel(WindowResize_tmr);
+					}
 				}
 			}, 100,0,true, $interval);
 			// 1000, 0, true, 2, 5
@@ -206,9 +208,9 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
         var isRight = (qid == $scope.Question.qid);		
 		
 		$scope.SetAnswerState(isRight, $scope.Question);
-		
-		$scope.LoadNextQuestion();		
-    };
+		if(isRight || !$scope.StopOnIncorrectAnswer)
+			$scope.LoadNextQuestion();
+	};
     
 	$scope.SetAnswerState = function(isRight, inQuestion){		
 		$scope.lastResult = { 
@@ -333,11 +335,11 @@ var quizApp = (function(){
 		var imageHintDivider = 2;
 		
 		imageHintDivider = (imageHasHints == true)? 2 : 1;
-		
+		console.log(imageHintDivider);
 		$("#imagediv").css("overflow-x", "scroll");
 		$("#imagediv").css("overflow-y", "hidden");		
 		$("#imagediv").css("width", imageWidthParm / imageHintDivider);
-		$("#imagediv").css("height", height);
+		$("#imagediv").css("height", height +15);
 		
 		return;
 	};
