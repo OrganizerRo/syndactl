@@ -1,5 +1,6 @@
 app.factory("dbFactory", function ($http) {
   var fac = {};
+ fac.Title = "C:\portsoft\study\books\Celestial\Astrology.mdb"
 
 // True of the image is 2 images in 1 by doubling the width, with the right side having the answers.
 fac.HasImageAnswers = function() {
@@ -9,311 +10,331 @@ fac.HasImageAnswers = function() {
 /**
 
 // Menu Links 
-<div ng-click="$parent.ShowQuizByViewName('Brass_Ranges')">Brass_Ranges</div>
-<div ng-click="$parent.ShowQuizByViewName('FifthsCircle')">FifthsCircle</div>
-<div ng-click="$parent.ShowQuizByViewName('InstrumentRanges')">InstrumentRanges</div>
-<div ng-click="$parent.ShowQuizByViewName('KeyRecognition')">KeyRecognition</div>
-<div ng-click="$parent.ShowQuizByViewName('KeyRecognition_Major')">KeyRecognition_Major</div>
-<div ng-click="$parent.ShowQuizByViewName('KeyRecognition_Minor')">KeyRecognition_Minor</div>
-<div ng-click="$parent.ShowQuizByViewName('String_Ranges')">String_Ranges</div>
-<div ng-click="$parent.ShowQuizByViewName('VocalRanges')">VocalRanges</div>
-<div ng-click="$parent.ShowQuizByViewName('WoodWind_Ranges')">WoodWind_Ranges</div>
+<div ng-click="$parent.ShowQuizByViewName('VedicPlanetsinEnglish', true)">Vedic  Planets in English</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacwithintheElements', true)">Zodiac within the Elements</div>
+<div ng-click="$parent.ShowQuizByViewName('Zodiacaland3Qualities', true)">Zodiacal and 3 Qualities</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalAttributes', true)">Zodiacal Attributes</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalDates', true)">Zodiacal Dates</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalGlyphs', true)">Zodiacal Glyphs</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalMiscellaneousSymbols', true)">Zodiacal Miscellaneous Symbols</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalMonths', true)">Zodiacal Months</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalPlanetaryGlyphs', true)">Zodiacal Planetary Glyphs</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalRulersTraditional', true)">Zodiacal Rulers (Traditional)</div>
 
 // Menu json Handler
 
-case 'Brass_Ranges' :{
-                $scope.db = dbFactory.Brass_Ranges();
+case 'VedicPlanetsinEnglish' :{
+                $scope.db = dbFactory.VedicPlanetsinEnglish();
                 break;
             }
-case 'FifthsCircle' :{
-                $scope.db = dbFactory.FifthsCircle();
+case 'ZodiacwithintheElements' :{
+                $scope.db = dbFactory.ZodiacwithintheElements();
                 break;
             }
-case 'InstrumentRanges' :{
-                $scope.db = dbFactory.InstrumentRanges();
+case 'Zodiacaland3Qualities' :{
+                $scope.db = dbFactory.Zodiacaland3Qualities();
                 break;
             }
-case 'KeyRecognition' :{
-                $scope.db = dbFactory.KeyRecognition();
+case 'ZodiacalAttributes' :{
+                $scope.db = dbFactory.ZodiacalAttributes();
                 break;
             }
-case 'KeyRecognition_Major' :{
-                $scope.db = dbFactory.KeyRecognition_Major();
+case 'ZodiacalDates' :{
+                $scope.db = dbFactory.ZodiacalDates();
                 break;
             }
-case 'KeyRecognition_Minor' :{
-                $scope.db = dbFactory.KeyRecognition_Minor();
+case 'ZodiacalGlyphs' :{
+                $scope.db = dbFactory.ZodiacalGlyphs();
                 break;
             }
-case 'String_Ranges' :{
-                $scope.db = dbFactory.String_Ranges();
+case 'ZodiacalMiscellaneousSymbols' :{
+                $scope.db = dbFactory.ZodiacalMiscellaneousSymbols();
                 break;
             }
-case 'VocalRanges' :{
-                $scope.db = dbFactory.VocalRanges();
+case 'ZodiacalMonths' :{
+                $scope.db = dbFactory.ZodiacalMonths();
                 break;
             }
-case 'WoodWind_Ranges' :{
-                $scope.db = dbFactory.WoodWind_Ranges();
+case 'ZodiacalPlanetaryGlyphs' :{
+                $scope.db = dbFactory.ZodiacalPlanetaryGlyphs();
+                break;
+            }
+case 'ZodiacalRulersTraditional' :{
+                $scope.db = dbFactory.ZodiacalRulersTraditional();
                 break;
             }
 
 **/
-/* Brass_Ranges */
+/** SETUP THE DATABASE **/
+
+fac.ImagesDB = [];
+
+fac.GetImage = function (filename) {var images = fac.ImagesDB;for(var i = 0; i < images.length; i++) { if(images[i].filename == filename){ return images[i].data; }} return ''; };
+
+/* Vedic  Planets in English */
 /* 
-	case 'Brass_Ranges' :{
-		$scope.db = dbFactory.Brass_Ranges();
+	case 'VedicPlanetsinEnglish' :{
+		$scope.db = dbFactory.VedicPlanetsinEnglish();
 		break;
 	}
 */
-fac.Brass_Ranges = function() {
-	return [
-		{ qid: 1, question: 'Tuba Lower', answer: 'd1', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 2, question: 'Tuba Upper', answer: 'f4', picture: 'Orchestral_Range.gif', hint: 'f' },
-		{ qid: 3, question: 'Trombone Lower', answer: 'e2', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 4, question: 'Trombone Upper', answer: 'f5', picture: 'Orchestral_Range.gif', hint: 'f' },
-		{ qid: 5, question: 'French Horn Lower', answer: 'fs2', picture: 'Orchestral_Range.gif', hint: 'fs' },
-		{ qid: 6, question: 'French Horn Upper', answer: 'c6', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 7, question: 'Trumpet Lower', answer: 'fs3', picture: 'Orchestral_Range.gif', hint: 'fs' },
-		{ qid: 8, question: 'Trumpet Upper', answer: 'd6', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 9, question: 'Bass Sax Lower', answer: 'ab1', picture: 'Orchestral_Range.gif', hint: 'ab' },
-		{ qid: 10, question: 'Bass Sax Upper', answer: 'eb4', picture: 'Orchestral_Range.gif', hint: 'eb' },
-		{ qid: 11, question: 'Baritone Sax Lower', answer: 'db2', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 12, question: 'Baritone Sax Upper', answer: 'eb5', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 13, question: 'Tenor Sax Lower', answer: 'ab2', picture: 'Orchestral_Range.gif', hint: 'ab' },
-		{ qid: 14, question: 'Tenor Sax Upper', answer: 'eb5', picture: 'Orchestral_Range.gif', hint: 'eb' },
-		{ qid: 15, question: 'Alto Sax Lower', answer: 'db3', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 16, question: 'Alto Sax Upper', answer: 'ab5', picture: 'Orchestral_Range.gifOrchestral_Range.gif', hint: 'a' },
-		{ qid: 17, question: 'Sop Sax Lower', answer: 'f3', picture: 'Orchestral_Range.gif', hint: 'f' },
-		{ qid: 18, question: 'Sop Sax Upper', answer: 'e6', picture: 'Orchestral_Range.gif', hint: 'e' }
-	];
-};
-/* FifthsCircle */
-/* 
-	case 'FifthsCircle' :{
-		$scope.db = dbFactory.FifthsCircle();
-		break;
-	}
-*/
-fac.FifthsCircle = function() {
+/* start database file for VedicPlanetsinEnglish */
+/* images */
+fac.VedicPlanetsinEnglish = function() {
 	return [
 	];
 };
-/* InstrumentRanges */
+/* Zodiac within the Elements */
 /* 
-	case 'InstrumentRanges' :{
-		$scope.db = dbFactory.InstrumentRanges();
+	case 'ZodiacwithintheElements' :{
+		$scope.db = dbFactory.ZodiacwithintheElements();
 		break;
 	}
 */
-fac.InstrumentRanges = function() {
+/* start database file for ZodiacwithintheElements */
+/* images */
+fac.ZodiacwithintheElements = function() {
 	return [
-		{ qid: 1, question: 'Bass Lower', answer: 'c2', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 2, question: 'Bass Upper', answer: 'c5', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 3, question: 'Cello Lower', answer: 'c2', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 4, question: 'Cello Upper', answer: 'c6', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 5, question: 'Viola Lower', answer: 'e3', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 6, question: 'Viola Upper', answer: 'e6', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 7, question: 'Violin Lower', answer: 'g3', picture: 'Orchestral_Range.gif', hint: 'g' },
-		{ qid: 8, question: 'Violin Upper', answer: 'a7', picture: 'Orchestral_Range.gif', hint: 'a' },
-		{ qid: 9, question: 'Tuba Lower', answer: 'd1', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 10, question: 'Tuba Upper', answer: 'f4', picture: 'Orchestral_Range.gif', hint: 'f' },
-		{ qid: 11, question: 'Trombone Lower', answer: 'e2', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 12, question: 'Trombone Upper', answer: 'f5', picture: 'Orchestral_Range.gif', hint: 'f' },
-		{ qid: 13, question: 'French Horn Lower', answer: 'fs2', picture: 'Orchestral_Range.gif', hint: 'fs' },
-		{ qid: 14, question: 'French Horn Upper', answer: 'c6', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 15, question: 'Trumpet Lower', answer: 'fs3', picture: 'Orchestral_Range.gif', hint: 'fs' },
-		{ qid: 16, question: 'Trumpet Upper', answer: 'd6', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 17, question: 'Basson Lower', answer: 'bb1', picture: 'Orchestral_Range.gif', hint: 'bb' },
-		{ qid: 18, question: 'Basson Upper', answer: 'eb5', picture: 'Orchestral_Range.gif', hint: 'eb' },
-		{ qid: 19, question: 'English Horn Lower', answer: 'b3', picture: 'Orchestral_Range.gif', hint: 'b' },
-		{ qid: 20, question: 'English Horn Upper', answer: 'g6', picture: 'Orchestral_Range.gif', hint: 'g' },
-		{ qid: 21, question: 'Oboe Lower', answer: 'eb3', picture: 'Orchestral_Range.gif', hint: 'eb' },
-		{ qid: 22, question: 'Oboe Upper', answer: 'a6', picture: 'Orchestral_Range.gif', hint: 'a' },
-		{ qid: 23, question: 'Bass Clarinet Lower', answer: 'eb3', picture: 'Orchestral_Range.gif', hint: 'eb' },
-		{ qid: 24, question: 'Bass Clarinet Upper', answer: 'g6', picture: 'Orchestral_Range.gif', hint: 'g' },
-		{ qid: 25, question: 'Alto Clarinet Lower', answer: 'd2', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 26, question: 'Alto Clarinet Upper', answer: 'd5', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 27, question: 'Sop Clarinet Lower', answer: 'g3', picture: 'Orchestral_Range.gif', hint: 'g' },
-		{ qid: 28, question: 'Sop Clarinet Upper', answer: 'd8', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 29, question: 'Bass Sax Lower', answer: 'ab1', picture: 'Orchestral_Range.gif', hint: 'ab' },
-		{ qid: 30, question: 'Bass Sax Upper', answer: 'eb4', picture: 'Orchestral_Range.gif', hint: 'eb' },
-		{ qid: 31, question: 'Baritone Sax Lower', answer: 'db2', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 32, question: 'Baritone Sax Upper', answer: 'eb5', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 33, question: 'Tenor Sax Lower', answer: 'ab2', picture: 'Orchestral_Range.gif', hint: 'ab' },
-		{ qid: 34, question: 'Tenor Sax Upper', answer: 'eb5', picture: 'Orchestral_Range.gif', hint: 'eb' },
-		{ qid: 35, question: 'Alto Sax Lower', answer: 'db3', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 36, question: 'Alto Sax Upper', answer: 'ab5', picture: 'Orchestral_Range.gifOrchestral_Range.gif', hint: 'a' },
-		{ qid: 37, question: 'Sop Sax Lower', answer: 'f3', picture: 'Orchestral_Range.gif', hint: 'f' },
-		{ qid: 38, question: 'Sop Sax Upper', answer: 'e6', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 39, question: 'Flute Lower', answer: 'c4', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 40, question: 'Flute Upper', answer: 'd7', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 41, question: 'Piccolo Lower', answer: 'd4', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 42, question: 'Piccolo Upper', answer: 'c4', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 43, question: 'Chimes Lower', answer: 'c4', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 44, question: 'Chimes Upper', answer: 'f5', picture: 'Orchestral_Range.gif', hint: 'f' },
-		{ qid: 45, question: 'Xylophone Lower', answer: 'f3', picture: 'Orchestral_Range.gif', hint: 'f' },
-		{ qid: 46, question: 'Xylophone Upper', answer: 'c7', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 47, question: 'Guitar Lower', answer: 'e3', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 48, question: 'Guitar Upper', answer: 'e6', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 49, question: 'Accordion Lower', answer: '', picture: 'Orchestral_Range.gif', hint: '' },
-		{ qid: 50, question: 'Accordion Upper', answer: '', picture: 'Orchestral_Range.gif', hint: '' },
-		{ qid: 51, question: 'Harp Lower', answer: 'cb1', picture: 'Orchestral_Range.gif', hint: 'cb' },
-		{ qid: 52, question: 'Harp Upper', answer: 'fs7', picture: 'Orchestral_Range.gif', hint: 'fs' },
-		{ qid: 53, question: 'Timpani Lower', answer: 'f2', picture: 'Orchestral_Range.gif', hint: '' },
-		{ qid: 54, question: 'Timpani Upper', answer: 'f3', picture: 'Orchestral_Range.gif', hint: '' },
-		{ qid: 55, question: 'ContraBasson Lower', answer: 'eb1', picture: 'Orchestral_Range.gifOrchestral_Range.gif', hint: 'eb' },
-		{ qid: 56, question: 'ContraBasson Upper', answer: 'bb4', picture: 'Orchestral_Range.gif', hint: 'bb' }
+		{ qid: 1, question: 'What element am I: Aries?', answer: 'Fire', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 2, question: 'What element am I: Leo?', answer: 'Fire', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 3, question: 'What element am I: Sagittarius?', answer: 'Fire', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 4, question: 'What element am I: Taraus?', answer: 'Earth', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 5, question: 'What element am I: Virgo?', answer: 'Earth', picture: '12glyphs.gif', hint: '   '},
+		{ qid: 6, question: 'What element am I: Capricorn?', answer: 'Earth', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 7, question: 'What element am I: Gemini?', answer: 'Air', picture: '12glyphs.gif', hint: '  '},
+		{ qid: 8, question: 'What element am I: Libra?', answer: 'Air', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 9, question: 'What element am I: Aquarius?', answer: 'Air', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 10, question: 'What element am I: Cancer?', answer: 'Water', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 11, question: 'What element am I: Pisces?', answer: 'Water', picture: '12glyphs.gif', hint: '  '},
+		{ qid: 12, question: 'What element am I: Scorpio?', answer: 'Water', picture: '12glyphs.gif', hint: ' '}
 	];
 };
-/* KeyRecognition */
+/* Zodiacal and 3 Qualities */
 /* 
-	case 'KeyRecognition' :{
-		$scope.db = dbFactory.KeyRecognition();
+	case 'Zodiacaland3Qualities' :{
+		$scope.db = dbFactory.Zodiacaland3Qualities();
 		break;
 	}
 */
-fac.KeyRecognition = function() {
+/* start database file for Zodiacaland3Qualities */
+/* images */
+fac.Zodiacaland3Qualities = function() {
 	return [
-		{ qid: 1, question: 'What minor Key is this ?', answer: 'd', picture: 'Key_Signature_Flashcards_page2_image2.jpg ', hint: ' ' },
-		{ qid: 2, question: 'What minor Key is this ?', answer: 'g', picture: 'Key_Signature_Flashcards_page2_image3.jpg', hint: '' },
-		{ qid: 3, question: 'What minor Key is this ?', answer: 'c', picture: 'Key_Signature_Flashcards_page2_image4.jpg', hint: '' },
-		{ qid: 4, question: 'What minor Key is this ?', answer: 'f', picture: 'Key_Signature_Flashcards_page2_image5.jpg', hint: '' },
-		{ qid: 5, question: 'What minor Key is this ?', answer: 'b flat', picture: 'Key_Signature_Flashcards_page2_image6.jpg', hint: '' },
-		{ qid: 6, question: 'What minor Key is this ?', answer: 'e flat', picture: 'Key_Signature_Flashcards_page2_image7.jpg', hint: '' },
-		{ qid: 7, question: 'What minor Key is this ?', answer: 'a flat', picture: 'Key_Signature_Flashcards_page2_image8.jpg', hint: '' },
-		{ qid: 8, question: 'What major Key is this ?', answer: 'f', picture: 'Key_Signature_Flashcards_page2_image2.jpg', hint: '' },
-		{ qid: 9, question: 'What major Key is this ?', answer: 'b flat', picture: 'Key_Signature_Flashcards_page2_image3.jpg', hint: '' },
-		{ qid: 10, question: 'What major Key is this ?', answer: 'e flat', picture: 'Key_Signature_Flashcards_page2_image4.jpg', hint: ' ' },
-		{ qid: 11, question: 'What major Key is this ?', answer: 'a flat', picture: 'Key_Signature_Flashcards_page2_image5.jpg', hint: '' },
-		{ qid: 12, question: 'What major Key is this ?', answer: 'd flat', picture: 'Key_Signature_Flashcards_page2_image6.jpg', hint: '' },
-		{ qid: 13, question: 'What major Key is this ?', answer: 'g flat', picture: 'Key_Signature_Flashcards_page2_image7.jpg', hint: '' },
-		{ qid: 14, question: 'What major Key is this ?', answer: 'c flat', picture: 'Key_Signature_Flashcards_page2_image8.jpg', hint: '' },
-		{ qid: 15, question: 'What minor Key is this ?', answer: 'a', picture: 'Key_Signature_Flashcards_page2_image1.jpg', hint: '' },
-		{ qid: 16, question: 'What major Key is this ?', answer: 'c', picture: 'Key_Signature_Flashcards_page2_image1.jpg', hint: '' }
+		{ qid: 1, question: 'What Quality is associated with me : Aries?', answer: 'Cardinal', picture: '12glyphs.gif', hint: 'None '},
+		{ qid: 2, question: 'What Quality is associated with me : Taurus?', answer: 'Fixed', picture: '12glyphs.gif', hint: 'None   '},
+		{ qid: 3, question: 'What Quality is associated with me : Gemini?', answer: 'Mutable', picture: '12glyphs.gif', hint: 'None    '},
+		{ qid: 4, question: 'What Quality is associated with me : Cancer?', answer: 'Cardinal', picture: '12glyphs.gif', hint: 'None     '},
+		{ qid: 5, question: 'What Quality is associated with me : Leo?', answer: 'Fixed', picture: '12glyphs.gif', hint: 'None      '},
+		{ qid: 6, question: 'What Quality is associated with me : Virgo?', answer: 'Mutable', picture: '12glyphs.gif', hint: 'None       '},
+		{ qid: 7, question: 'What Quality is associated with me : Libra?', answer: 'Cardinal', picture: '12glyphs.gif', hint: 'None        '},
+		{ qid: 8, question: 'What Quality is associated with me : Scorpio?', answer: 'Fixed', picture: '12glyphs.gif', hint: 'None         '},
+		{ qid: 9, question: 'What Quality is associated with me : Sagittarius?', answer: 'Mutable', picture: '12glyphs.gif', hint: 'None          '},
+		{ qid: 10, question: 'What Quality is associated with me : Capricorn?', answer: 'Cardinal', picture: '12glyphs.gif', hint: 'None           '},
+		{ qid: 11, question: 'What Quality is associated with me : Aquarius?', answer: 'Fixed', picture: '12glyphs.gif', hint: 'None            '},
+		{ qid: 12, question: 'What Quality is associated with me : Pisces?', answer: 'Mutable', picture: '12glyphs.gif', hint: 'None             '}
 	];
 };
-/* KeyRecognition_Major */
+/* Zodiacal Attributes */
 /* 
-	case 'KeyRecognition_Major' :{
-		$scope.db = dbFactory.KeyRecognition_Major();
+	case 'ZodiacalAttributes' :{
+		$scope.db = dbFactory.ZodiacalAttributes();
 		break;
 	}
 */
-fac.KeyRecognition_Major = function() {
+/* start database file for ZodiacalAttributes */
+/* images */
+fac.ZodiacalAttributes = function() {
 	return [
-		{ qid: 1, question: 'What major Key is this ?', answer: 'c', picture: 'Key_Signature_Flashcards_page2_image1.jpg', hint: '' },
-		{ qid: 2, question: 'What major Key is this ?', answer: 'f', picture: 'Key_Signature_Flashcards_page2_image2.jpg', hint: '' },
-		{ qid: 3, question: 'What major Key is this ?', answer: 'b flat', picture: 'Key_Signature_Flashcards_page2_image3.jpg', hint: '' },
-		{ qid: 4, question: 'What major Key is this ?', answer: 'e flat', picture: 'Key_Signature_Flashcards_page2_image4.jpg', hint: ' ' },
-		{ qid: 5, question: 'What major Key is this ?', answer: 'a flat', picture: 'Key_Signature_Flashcards_page2_image5.jpg', hint: '' },
-		{ qid: 6, question: 'What major Key is this ?', answer: 'd flat', picture: 'Key_Signature_Flashcards_page2_image6.jpg', hint: '' },
-		{ qid: 7, question: 'What major Key is this ?', answer: 'g flat', picture: 'Key_Signature_Flashcards_page2_image7.jpg', hint: '' },
-		{ qid: 8, question: 'What major Key is this ?', answer: 'c flat', picture: 'Key_Signature_Flashcards_page2_image8.jpg', hint: '' },
-		{ qid: 9, question: 'What major Key is this ?', answer: 'g', picture: 'Key_Signature_Flashcards_page2_image9.jpg', hint: '' },
-		{ qid: 10, question: 'What major Key is this ?', answer: 'd', picture: 'Key_Signature_Flashcards_page2_image10.jpg', hint: '' },
-		{ qid: 11, question: 'What major Key is this ?', answer: 'a', picture: 'Key_Signature_Flashcards_page2_image11.jpg', hint: '' },
-		{ qid: 12, question: 'What major Key is this ?', answer: 'e', picture: 'Key_Signature_Flashcards_page2_image12.jpg', hint: '' },
-		{ qid: 13, question: 'What major Key is this ?', answer: 'b', picture: 'Key_Signature_Flashcards_page2_image13.jpg', hint: '' },
-		{ qid: 14, question: 'What major Key is this ?', answer: 'f sharp', picture: 'Key_Signature_Flashcards_page2_image14.jpg', hint: '' },
-		{ qid: 15, question: 'What major Key is this ?', answer: 'c sharp', picture: 'Key_Signature_Flashcards_page2_image15.jpg', hint: '' },
-		{ qid: 16, question: 'What sharp major Key is this ?', answer: 'c', picture: 'Key_Signature_Flashcards_page2_image16.jpg', hint: '' }
+		{ qid: 1, question: 'This Describes this sign :  Assertive, individualistic, impulsive, energetic, head strong, pioneering, leader, competitive, action-oriented, aggressive, intemperate, violent, fiery, extreme, arrogant, quick, passionate. Part of body: head/skull.', answer: 'Aries', picture: 'AstrologySigns.gif', hint: '  '},
+		{ qid: 2, question: 'Name the Person: "I have". Resourceful, thorough, devotedly, patient, indulgent, sensual, affectionate, possessive, cautious, acquisitive, musical, artistic, stubborn, solid, earthly, strong, sturdy, slow, kind, just. Part of body: throat/neck', answer: 'Taurus', picture: 'AstrologySigns.gif', hint: '  '},
+		{ qid: 3, question: 'Name The Person : (mutable, air, personal): Keyword: "I think". Logical, inquisitive, fast, curious, multi-tasking, talkative, sociable, duality, mercurial, whimsical, intelligent, restless, informed. Part of body: hands/lungs,', answer: 'Gemini', picture: 'AstrologySigns.gif', hint: '  '},
+		{ qid: 4, question: 'Name the Person : (cardinal, water, personal): Keyword: "I feel". Protective, sensitive, clinging, tenacious, family and home oriented, helpful, nurturing, moody, watery, emotional, crabby, loving. Part of body: stomach/breasts', answer: 'Cancer', picture: 'AstrologySigns.gif', hint: '  '},
+		{ qid: 5, question: 'Name This Person : (fixed, fire, social): Keyword: "I will". Generous, proud, theatrical, passionate, bossy, loves attention, dramatic, independent, noble, creative, leader, egotistic, sunny, bright, kingly, powerful. Part of body: heart/back', answer: 'Leo', picture: 'AstrologySigns.gif', hint: '  '},
+		{ qid: 6, question: 'Who is this person :  (mutable, earth, social): Keyword: "I analyze". Practical, efficient, critical, work and service oriented, common sense, modest, intelligent, health conscious, fussy, helpful, loving, flexible. Part of body: intestines/digestion', answer: 'Virgo', picture: 'AstrologySigns.gif', hint: '  '},
+		{ qid: 7, question: 'Who is This Person :  (cardinal, air, social): Keyword: "I balance". Co-operative, fair, lazy, partnerships, balance, grace, charm, debative, open-minded, social, ideas. Part of body: kidneys/lumbar', answer: 'Libra', picture: 'AstrologySigns.gif', hint: '  '},
+		{ qid: 8, question: 'Who is this person :  (fixed, water, social): Keyword: "I desire". Passionate, sensitive, anxious, intense, controlling, sexual, confrontative, deep, skeptical, mysterious, obsessive, death, transformation. Part of body: genitals/reproductive organs', answer: 'Scorpio', picture: 'AstrologySigns.gif', hint: '  '},
+		{ qid: 9, question: 'Who is This person :  (mutable, fire, universal): Keyword: "I perceive". Free, straightforward, careless, philosophic, fun-loving, arrogant, adventurous, expansive, optimistic, blundering, believer, scattered. Part of body: hips/thighs', answer: 'Sagittarius', picture: 'AstrologySigns.gif', hint: '  '},
+		{ qid: 10, question: 'Who is this Person :(cardinal, earth, universal): Keyword: "I use". Prudent, cautious, suspicious, ambitious, rigid, authoritative, cunning, competent, saturnine, inclined to politics/business. Part of body: knees/skeleton', answer: 'Capricorn', picture: 'AstrologySigns.gif', hint: '  '},
+		{ qid: 11, question: 'Who is This person :  (fixed, air, universal): Keyword: "I know". Democratic, unconventional, detached, friendships, humanitarian, cause-oriented, the group, society, progressive, eccentric, elitist, sophisticated, objective. Part of body: nervous system/ankles', answer: 'Aquarius', picture: 'AstrologySigns.gif', hint: '   '},
+		{ qid: 12, question: 'Who is this Person : (mutable, water, universal): Keyword: "I believe". Imaginative, sensitive, distracted, feeling, duality, idealistic, spirituality, acceptance, undiscriminating, soul growth, martyrdom, artistic, neglectful, surrender, compassionate. Part of body: feet/immune system', answer: 'Pisces', picture: 'AstrologySigns.gif', hint: '  '}
 	];
 };
-/* KeyRecognition_Minor */
+/* Zodiacal Dates */
 /* 
-	case 'KeyRecognition_Minor' :{
-		$scope.db = dbFactory.KeyRecognition_Minor();
+	case 'ZodiacalDates' :{
+		$scope.db = dbFactory.ZodiacalDates();
 		break;
 	}
 */
-fac.KeyRecognition_Minor = function() {
+/* start database file for ZodiacalDates */
+/* images */
+fac.ZodiacalDates = function() {
 	return [
-		{ qid: 1, question: 'What minor Key is this ?', answer: 'a', picture: 'Key_Signature_Flashcards_page2_image1.jpg', hint: '' },
-		{ qid: 2, question: 'What minor Key is this ?', answer: 'd', picture: 'Key_Signature_Flashcards_page2_image2.jpg ', hint: ' ' },
-		{ qid: 3, question: 'What minor Key is this ?', answer: 'g', picture: 'Key_Signature_Flashcards_page2_image3.jpg', hint: '' },
-		{ qid: 4, question: 'What minor Key is this ?', answer: 'c', picture: 'Key_Signature_Flashcards_page2_image4.jpg', hint: '' },
-		{ qid: 5, question: 'What minor Key is this ?', answer: 'f', picture: 'Key_Signature_Flashcards_page2_image5.jpg', hint: '' },
-		{ qid: 6, question: 'What minor Key is this ?', answer: 'b flat', picture: 'Key_Signature_Flashcards_page2_image6.jpg', hint: '' },
-		{ qid: 7, question: 'What minor Key is this ?', answer: 'e flat', picture: 'Key_Signature_Flashcards_page2_image7.jpg', hint: '' },
-		{ qid: 8, question: 'What minor Key is this ?', answer: 'a flat', picture: 'Key_Signature_Flashcards_page2_image8.jpg', hint: '' },
-		{ qid: 10, question: 'What minor Key is this ?', answer: 'e', picture: 'Key_Signature_Flashcards_page2_image9.jpg', hint: '' },
-		{ qid: 11, question: 'What minor Key is this ?', answer: 'b', picture: 'Key_Signature_Flashcards_page2_image10.jpg', hint: '' },
-		{ qid: 12, question: 'What minor Key is this ?', answer: 'f sharp', picture: 'Key_Signature_Flashcards_page2_image11.jpg', hint: '' },
-		{ qid: 13, question: 'What minor Key is this ?', answer: 'c sharp', picture: 'Key_Signature_Flashcards_page2_image12.jpg', hint: '' },
-		{ qid: 14, question: 'What minor Key is this ?', answer: 'g sharp', picture: 'Key_Signature_Flashcards_page2_image13.jpg', hint: '' },
-		{ qid: 15, question: 'What minor Key is this ?', answer: 'd sharp', picture: 'Key_Signature_Flashcards_page2_image14.jpg', hint: '' },
-		{ qid: 16, question: 'What minor Key is this ?', answer: 'a sharp', picture: 'Key_Signature_Flashcards_page2_image15.jpg', hint: '' },
-		{ qid: 17, question: 'What sharp minor Key is this ?', answer: 'a sharp', picture: 'Key_Signature_Flashcards_page2_image16.jpg', hint: '' }
+		{ qid: 1, question: 'Dates of Sign : March 21?', answer: 'Aries', picture: 'roundZodiac.gif', hint: '  '},
+		{ qid: 2, question: 'Dates of Sign : April 21?', answer: 'Taurus', picture: 'roundZodiac.gif', hint: '  '},
+		{ qid: 3, question: 'Dates of Sign :May 22 ?', answer: 'Gemini', picture: 'roundZodiac.gif', hint: '  '},
+		{ qid: 4, question: 'Dates of Sign : June 22 ?', answer: 'Cancer', picture: 'roundZodiac.gif', hint: '  '},
+		{ qid: 5, question: 'Dates of Sign : July 23 ?', answer: 'Leo', picture: 'roundZodiac.gif', hint: '   '},
+		{ qid: 6, question: 'Dates of Sign : August 22 ?', answer: 'Virgo', picture: 'roundZodiac.gif', hint: '  '},
+		{ qid: 7, question: 'Dates of Sign : September 24 ?', answer: 'Libra', picture: 'roundZodiac.gif', hint: '  '},
+		{ qid: 8, question: 'Dates of Sign : October 24 ?', answer: 'Scorpio', picture: 'roundZodiac.gif', hint: '  '},
+		{ qid: 9, question: 'Dates of Sign : November 23 ?', answer: 'Sagittarius', picture: 'roundZodiac.gif', hint: '  '},
+		{ qid: 10, question: 'Dates of Sign : December 23 ?', answer: 'Capricorn', picture: 'roundZodiac.gif', hint: '  '},
+		{ qid: 11, question: 'Dates of Sign : January 21 ?', answer: 'Aquarius', picture: 'roundZodiac.gif', hint: '  '},
+		{ qid: 12, question: 'Dates of Sign : February 20 ?', answer: 'Pisces', picture: 'roundZodiac.gif', hint: '  '}
 	];
 };
-/* String_Ranges */
+/* Zodiacal Glyphs */
 /* 
-	case 'String_Ranges' :{
-		$scope.db = dbFactory.String_Ranges();
+	case 'ZodiacalGlyphs' :{
+		$scope.db = dbFactory.ZodiacalGlyphs();
 		break;
 	}
 */
-fac.String_Ranges = function() {
+/* start database file for ZodiacalGlyphs */
+/* images */
+fac.ZodiacalGlyphs = function() {
 	return [
-		{ qid: 1, question: 'Bass Lower', answer: 'c2', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 2, question: 'Bass Upper', answer: 'c5', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 3, question: 'Cello Lower', answer: 'c2', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 4, question: 'Cello Upper', answer: 'c6', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 5, question: 'Viola Lower', answer: 'e3', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 6, question: 'Viola Upper', answer: 'e6', picture: 'Orchestral_Range.gif', hint: 'e' },
-		{ qid: 7, question: 'Violin Lower', answer: 'g3', picture: 'Orchestral_Range.gif', hint: 'g' },
-		{ qid: 8, question: 'Violin Upper', answer: 'a7', picture: 'Orchestral_Range.gif', hint: 'a' }
+		{ qid: 1, question: 'What is glyph #1?', answer: 'Aries', picture: '12glyphs.gif', hint: '    '},
+		{ qid: 2, question: 'What is glyph #2?', answer: 'Taurus', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 3, question: 'What is glyph #3?', answer: 'Gemini', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 4, question: 'What is glyph 4?', answer: 'Cancer', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 5, question: 'What is glyph 5?', answer: 'Leo', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 6, question: 'What is glyph 6?', answer: 'Virgo', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 7, question: 'What is glyph 7?', answer: 'Libra', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 8, question: 'What is glyph 8?', answer: 'Scorpio', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 9, question: 'What is glyph 9?', answer: 'Sagittarius', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 10, question: 'What is glyph 10?', answer: 'Capricorn', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 11, question: 'What is glyph 11?', answer: 'Aquarius', picture: '12glyphs.gif', hint: ' '},
+		{ qid: 12, question: 'What is glyph 12?', answer: 'Pisces', picture: '12glyphs.gif', hint: ' '}
 	];
 };
-/* VocalRanges */
+/* Zodiacal Miscellaneous Symbols */
 /* 
-	case 'VocalRanges' :{
-		$scope.db = dbFactory.VocalRanges();
+	case 'ZodiacalMiscellaneousSymbols' :{
+		$scope.db = dbFactory.ZodiacalMiscellaneousSymbols();
 		break;
 	}
 */
-fac.VocalRanges = function() {
+/* start database file for ZodiacalMiscellaneousSymbols */
+/* images */
+fac.ZodiacalMiscellaneousSymbols = function() {
 	return [
-		{ qid: 1, question: 'Bass Lower', answer: 'd2', picture: 'Orchestral_Range.gif', hint: 'D' },
-		{ qid: 2, question: 'Bass Upper', answer: 'd4', picture: 'Orchestral_Range.gif', hint: 'D' },
-		{ qid: 3, question: 'Baritone Lower', answer: 'a2', picture: 'Orchestral_Range.gif', hint: 'a' },
-		{ qid: 4, question: 'Baritone Upper', answer: 'g4', picture: 'Orchestral_Range.gif', hint: 'g' },
-		{ qid: 5, question: 'Tenor Lower', answer: 'c3', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 6, question: 'Tenor Upper', answer: 'a4', picture: 'Orchestral_Range.gif', hint: 'a' },
-		{ qid: 7, question: 'Alto Lower', answer: 'f3', picture: 'Orchestral_Range.gif', hint: 'f' },
-		{ qid: 8, question: 'Alto Upper', answer: 'd5', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 9, question: 'Soprano Lower', answer: 'c4', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 10, question: 'Saprano Upper', answer: 'a5', picture: 'Orchestral_Range.gif', hint: 'a' }
+		{ qid: 1, question: 'What is the name of 1?', answer: 'Ascendant', picture: 'miscSymbs.gif', hint: 'none '},
+		{ qid: 2, question: 'What is the name of 2?', answer: 'North Node', picture: 'miscSymbs.gif', hint: 'none  '},
+		{ qid: 3, question: 'What is the name of 3?', answer: 'Midheaven', picture: 'miscSymbs.gif', hint: 'none   '},
+		{ qid: 4, question: 'What is the name of 4?', answer: 'South Node', picture: 'miscSymbs.gif', hint: 'none        '},
+		{ qid: 5, question: 'What is the name of 5?', answer: 'Vertex', picture: 'miscSymbs.gif', hint: 'none     '},
+		{ qid: 6, question: 'What is the name of 6?', answer: 'Retrograde', picture: 'miscSymbs.gif', hint: 'none      '},
+		{ qid: 7, question: 'What is the name of 7?', answer: 'Part of Fortune', picture: 'miscSymbs.gif', hint: 'none       '},
+		{ qid: 8, question: 'What is the name of 8?', answer: 'Chiron', picture: 'miscSymbs.gif', hint: 'none        '},
+		{ qid: 9, question: 'What is the name of 9?', answer: 'Ceres', picture: 'miscSymbs.gif', hint: 'none         '},
+		{ qid: 10, question: 'What is the name of 10', answer: 'Amor', picture: 'miscSymbs.gif', hint: 'none          '},
+		{ qid: 11, question: 'What is the name of 11', answer: 'Juno', picture: 'miscSymbs.gif', hint: 'none           '},
+		{ qid: 12, question: 'What is the name of 12?', answer: 'Psyche', picture: 'miscSymbs.gif', hint: 'none            '},
+		{ qid: 13, question: 'What is the name of 13?', answer: 'Pallas', picture: 'miscSymbs.gif', hint: 'none             '},
+		{ qid: 14, question: 'What is the name of 14?', answer: 'Sappho', picture: 'miscSymbs.gif', hint: 'none              '},
+		{ qid: 15, question: 'What is the name of 15?', answer: 'Vesta', picture: 'miscSymbs.gif', hint: 'none               '},
+		{ qid: 16, question: 'What is the name of 16?', answer: 'Equatorial Ascendant', picture: 'miscSymbs.gif', hint: 'none                '},
+		{ qid: 17, question: 'What is the name of 17?', answer: 'Eros', picture: 'miscSymbs.gif', hint: 'none                 '},
+		{ qid: 18, question: 'What is the name of 18?', answer: 'Descendant', picture: 'miscSymbs.gif', hint: 'none                  '},
+		{ qid: 19, question: 'What is the name of aspect 19?', answer: 'Conjunction', picture: 'miscSymbs.gif', hint: 'none                   '},
+		{ qid: 20, question: 'What is the name of aspect 20?', answer: 'Sesquiquadrature', picture: 'miscSymbs.gif', hint: 'none                    '},
+		{ qid: 21, question: 'What is the name of aspect 21?', answer: 'SemiSextile', picture: 'miscSymbs.gif', hint: 'none                     '},
+		{ qid: 22, question: 'What is the name of aspect 22?', answer: 'Quincunx', picture: 'miscSymbs.gif', hint: 'none                      '},
+		{ qid: 23, question: 'What is the name of aspect 23?', answer: 'Sextile', picture: 'miscSymbs.gif', hint: 'none                       '},
+		{ qid: 24, question: 'What is the name of aspect 24?', answer: 'Opposition', picture: 'miscSymbs.gif', hint: 'none                        '},
+		{ qid: 25, question: 'What is the name of aspect 25?', answer: 'Square', picture: 'miscSymbs.gif', hint: 'none                         '},
+		{ qid: 26, question: 'What is the name of aspect 26?', answer: 'Parallel', picture: 'miscSymbs.gif', hint: 'none                          '},
+		{ qid: 27, question: 'What is the name of aspect 27?', answer: 'Trine', picture: 'miscSymbs.gif', hint: 'none                           '},
+		{ qid: 28, question: 'What is the name of aspect 28?', answer: 'ContraParallel', picture: 'miscSymbs.gif', hint: 'none                            '},
+		{ qid: 29, question: 'What is the name of aspect 29?', answer: 'SemiSquare', picture: 'miscSymbs.gif', hint: 'none                              '}
 	];
 };
-/* WoodWind_Ranges */
+/* Zodiacal Months */
 /* 
-	case 'WoodWind_Ranges' :{
-		$scope.db = dbFactory.WoodWind_Ranges();
+	case 'ZodiacalMonths' :{
+		$scope.db = dbFactory.ZodiacalMonths();
 		break;
 	}
 */
-fac.WoodWind_Ranges = function() {
+/* start database file for ZodiacalMonths */
+/* images */
+fac.ZodiacalMonths = function() {
 	return [
-		{ qid: 1, question: 'Basson Lower', answer: 'bb1', picture: 'Orchestral_Range.gif', hint: 'bb' },
-		{ qid: 2, question: 'Basson Upper', answer: 'eb5', picture: 'Orchestral_Range.gif', hint: 'eb' },
-		{ qid: 3, question: 'English Horn Lower', answer: 'b3', picture: 'Orchestral_Range.gif', hint: 'b' },
-		{ qid: 4, question: 'English Horn Upper', answer: 'g6', picture: 'Orchestral_Range.gif', hint: 'g' },
-		{ qid: 5, question: 'Oboe Lower', answer: 'eb3', picture: 'Orchestral_Range.gif', hint: 'eb' },
-		{ qid: 6, question: 'Oboe Upper', answer: 'a6', picture: 'Orchestral_Range.gif', hint: 'a' },
-		{ qid: 7, question: 'Bass Clarinet Lower', answer: 'eb3', picture: 'Orchestral_Range.gif', hint: 'eb' },
-		{ qid: 8, question: 'Bass Clarinet Upper', answer: 'g6', picture: 'Orchestral_Range.gif', hint: 'g' },
-		{ qid: 9, question: 'Alto Clarinet Lower', answer: 'd2', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 10, question: 'Alto Clarinet Upper', answer: 'd5', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 11, question: 'Sop Clarinet Lower', answer: 'g3', picture: 'Orchestral_Range.gif', hint: 'g' },
-		{ qid: 12, question: 'Sop Clarinet Upper', answer: 'd8', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 13, question: 'Flute Lower', answer: 'c4', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 14, question: 'Flute Upper', answer: 'd7', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 15, question: 'Piccolo Lower', answer: 'd4', picture: 'Orchestral_Range.gif', hint: 'd' },
-		{ qid: 16, question: 'Piccolo Upper', answer: 'c4', picture: 'Orchestral_Range.gif', hint: 'c' },
-		{ qid: 17, question: 'ContraBasson Lower', answer: 'eb1', picture: 'Orchestral_Range.gifOrchestral_Range.gif', hint: 'eb' },
-		{ qid: 18, question: 'ContraBasson Upper', answer: 'bb4', picture: 'Orchestral_Range.gif', hint: 'bb' }
+		{ qid: 1, question: 'What month is Aries ?', answer: 'March 21 April 20', picture: 'aries_largecolorful.jpg', hint: '  '},
+		{ qid: 2, question: 'What month is Taurus?', answer: 'April 21 May 21', picture: 'taurus_largecolorful.jpg', hint: 'Sidereal Zodiac   '},
+		{ qid: 3, question: 'What month is Gemini?', answer: 'May 22 June 21', picture: 'Gemini_largecolorful.jpg', hint: '    '},
+		{ qid: 4, question: 'What month is Cancer?', answer: 'June 22 july 22', picture: 'Cancer_largecolorful.jpg', hint: '    '},
+		{ qid: 5, question: 'What month is Leo?', answer: 'July 23 August 23', picture: 'Leo_largecolorful.jpg', hint: '    '},
+		{ qid: 6, question: 'What month is Virgo?', answer: 'August 24 September 22', picture: 'virgo_largecolorful.jpg', hint: '    '},
+		{ qid: 7, question: 'What month is Libra?', answer: 'September 23 October 23', picture: 'libra_largecolorful.jpg', hint: '       '},
+		{ qid: 8, question: 'What month is Scorpio?', answer: 'October 24 November 22', picture: 'scorpio_largecolorful.jpg', hint: '     '},
+		{ qid: 9, question: 'What month is Sagittarius?', answer: 'November 23 December 22', picture: 'sagittarius_largecolorful.jpg', hint: '     '},
+		{ qid: 10, question: 'What month is Capricorn?', answer: 'December 23 January 20', picture: 'capricorn_largecolorful.jpg', hint: '        '},
+		{ qid: 11, question: 'What month is Aquarius?', answer: 'January 21 February 19', picture: 'aquarius_largecolorful.jpg', hint: '       '},
+		{ qid: 12, question: 'What month is Pisces?', answer: 'February 20 March 20', picture: 'pisces_largecolorful.jpg', hint: '     '}
+	];
+};
+/* Zodiacal Planetary Glyphs */
+/* 
+	case 'ZodiacalPlanetaryGlyphs' :{
+		$scope.db = dbFactory.ZodiacalPlanetaryGlyphs();
+		break;
+	}
+*/
+/* start database file for ZodiacalPlanetaryGlyphs */
+/* images */
+fac.ZodiacalPlanetaryGlyphs = function() {
+	return [
+		{ qid: 1, question: 'What is the name of planet 1?', answer: 'Sun', picture: '12PlanetGlyphs.gif', hint: 'none '},
+		{ qid: 2, question: 'What is the association of planet 1?', answer: 'ego', picture: '12PlanetGlyphs.gif', hint: 'none  '},
+		{ qid: 3, question: 'What is the name of planet 2?', answer: 'Moon', picture: '12PlanetGlyphs.gif', hint: 'none   '},
+		{ qid: 4, question: 'What is the association of planet 2?', answer: 'feelings', picture: '12PlanetGlyphs.gif', hint: 'none    '},
+		{ qid: 5, question: 'What is the name of planet 3?', answer: 'Mercury', picture: '12PlanetGlyphs.gif', hint: 'none     '},
+		{ qid: 6, question: 'What is the association of planet 3?', answer: 'Messenger', picture: '12PlanetGlyphs.gif', hint: 'none      '},
+		{ qid: 7, question: 'What is the name of planet 4?', answer: 'mars', picture: '12PlanetGlyphs.gif', hint: 'none       '},
+		{ qid: 8, question: 'What is the association of planet 4?', answer: 'Warrior', picture: '12PlanetGlyphs.gif', hint: 'none        '},
+		{ qid: 9, question: 'What is the name of planet 5?', answer: 'Jupiter', picture: '12PlanetGlyphs.gif', hint: 'none         '},
+		{ qid: 10, question: 'What is the association of planet 5?', answer: 'Growth', picture: '12PlanetGlyphs.gif', hint: 'none          '},
+		{ qid: 11, question: 'What is the name of planet 6?', answer: 'Saturn', picture: '12PlanetGlyphs.gif', hint: 'none           '},
+		{ qid: 12, question: 'What is the association of planet 6?', answer: 'limits', picture: '12PlanetGlyphs.gif', hint: 'none            '},
+		{ qid: 13, question: 'What is the name of planet 7?', answer: 'Neptune', picture: '12PlanetGlyphs.gif', hint: 'none             '},
+		{ qid: 14, question: 'What is the association of planet 7?', answer: 'Compassion', picture: '12PlanetGlyphs.gif', hint: 'none              '},
+		{ qid: 15, question: 'What is the name of planet 8?', answer: 'Pluto', picture: '12PlanetGlyphs.gif', hint: 'none               '},
+		{ qid: 16, question: 'What is the association of planet 8?', answer: 'Power', picture: '12PlanetGlyphs.gif', hint: 'none                '},
+		{ qid: 17, question: 'What is the name of planet 9?', answer: 'Chiron', picture: '12PlanetGlyphs.gif', hint: 'none                 '},
+		{ qid: 18, question: 'What is the association of planet 9?', answer: 'Wounded Healer', picture: '12PlanetGlyphs.gif', hint: 'none                  '},
+		{ qid: 19, question: 'What is the name of planet 10?', answer: 'Venus', picture: '12PlanetGlyphs.gif', hint: 'none                   '},
+		{ qid: 20, question: 'What is the association of planet 10?', answer: 'Love', picture: '12PlanetGlyphs.gif', hint: 'none                    '},
+		{ qid: 21, question: 'What is the name of planet 11?', answer: 'Uranus', picture: '12PlanetGlyphs.gif', hint: 'none                     '},
+		{ qid: 22, question: 'What is the associaiton of planet 11?', answer: 'Enlightener', picture: '12PlanetGlyphs.gif', hint: 'none                      '},
+		{ qid: 23, question: 'What is the name of planet 12?', answer: 'Retrograde', picture: '12PlanetGlyphs.gif', hint: 'none                       '}
+	];
+};
+/* Zodiacal Rulers (Traditional) */
+/* 
+	case 'ZodiacalRulersTraditional' :{
+		$scope.db = dbFactory.ZodiacalRulersTraditional();
+		break;
+	}
+*/
+/* start database file for ZodiacalRulersTraditional */
+/* images */
+fac.ZodiacalRulersTraditional = function() {
+	return [
+		{ qid: 1, question: 'Which planet rules Aries?', answer: 'Mars', picture: '9Planets.gif', hint: '  '},
+		{ qid: 2, question: 'Which planet rules Taurus?', answer: 'Venus', picture: '9Planets.gif', hint: ' '},
+		{ qid: 3, question: 'Which planet rules Gemini?', answer: 'Mercury', picture: '9Planets.gif', hint: ' '},
+		{ qid: 4, question: 'Which planet rules Cancer?', answer: 'Moon', picture: '9Planets.gif', hint: ' '},
+		{ qid: 5, question: 'Which planet rules Leo?', answer: 'Sun', picture: '9Planets.gif', hint: ' '},
+		{ qid: 6, question: 'Which planet rules Virgo?', answer: 'Mercury', picture: '9Planets.gif', hint: ' '},
+		{ qid: 7, question: 'Which planet rules Libra?', answer: 'Venus', picture: '9Planets.gif', hint: ' '},
+		{ qid: 8, question: 'Which planet rules Scorpio?', answer: 'Mars', picture: '9Planets.gif', hint: ' '},
+		{ qid: 9, question: 'Which planet rules Sagittarius?', answer: 'Jupiter', picture: '9Planets.gif', hint: ' '},
+		{ qid: 10, question: 'Which planet rules Capricorn?', answer: 'Saturn', picture: '9Planets.gif', hint: ' '},
+		{ qid: 11, question: 'Which planet rules Aquarius?', answer: 'Saturn', picture: '9Planets.gif', hint: ' '},
+		{ qid: 12, question: 'Which planet rules Pisces?', answer: 'Jupiter', picture: '9Planets.gif', hint: ' '}
 	];
 };
  return fac;
