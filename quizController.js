@@ -45,46 +45,47 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		switch(inView){
 			/* Set View Controllers here*/
 			
-			case 'Brass_Ranges' :{
-                $scope.db = dbFactory.Brass_Ranges();
+case 'VedicPlanetsinEnglish' :{
+                $scope.db = dbFactory.VedicPlanetsinEnglish();
                 break;
             }
-			case 'FifthsCircle' :{
-							$scope.db = dbFactory.FifthsCircle();
-							break;
-						}
-			case 'InstrumentRanges' :{
-							$scope.db = dbFactory.InstrumentRanges();
-							break;
-						}
-			case 'KeyRecognition' :{
-							$scope.db = dbFactory.KeyRecognition();
-							break;
-						}
-			case 'KeyRecognition_Major' :{
-							$scope.db = dbFactory.KeyRecognition_Major();
-							break;
-						}
-			case 'KeyRecognition_Minor' :{
-							$scope.db = dbFactory.KeyRecognition_Minor();
-							break;
-						}
-			case 'String_Ranges' :{
-							$scope.db = dbFactory.String_Ranges();
-							break;
-						}
-			case 'VocalRanges' :{
-							$scope.db = dbFactory.VocalRanges();
-							break;
-						}
-			case 'WoodWind_Ranges' :{
-							$scope.db = dbFactory.WoodWind_Ranges();
-							break;
-						}
-			case 'Sight_Reading_1' :{
-                $scope.db = dbFactory.Sight_Reading_1();
+case 'ZodiacwithintheElements' :{
+                $scope.db = dbFactory.ZodiacwithintheElements();
                 break;
             }
+case 'Zodiacaland3Qualities' :{
+                $scope.db = dbFactory.Zodiacaland3Qualities();
+                break;
+            }
+case 'ZodiacalAttributes' :{
+                $scope.db = dbFactory.ZodiacalAttributes();
+                break;
+            }
+case 'ZodiacalDates' :{
+                $scope.db = dbFactory.ZodiacalDates();
+                break;
+            }
+case 'ZodiacalGlyphs' :{
+                $scope.db = dbFactory.ZodiacalGlyphs();
+                break;
+            }
+case 'ZodiacalMiscellaneousSymbols' :{
+                $scope.db = dbFactory.ZodiacalMiscellaneousSymbols();
+                break;
+            }
+case 'ZodiacalMonths' :{
+                $scope.db = dbFactory.ZodiacalMonths();
+                break;
+            }
+case 'ZodiacalPlanetaryGlyphs' :{
+                $scope.db = dbFactory.ZodiacalPlanetaryGlyphs();
+                break;
+            }
+case 'ZodiacalRulersTraditional' :{
+                $scope.db = dbFactory.ZodiacalRulersTraditional();
+                break;
+            }
+
 			case 'menumode':
 			default:{				
 				$scope.MenuMode = true;			
@@ -284,6 +285,10 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		});
     };
      
+	$scope.LoadEmbeddedImage = function(imagename){
+		return dbFactory.GetImage(imagename);
+	};
+	
     $scope.init();
 }]);
 

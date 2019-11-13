@@ -22,7 +22,7 @@
 			<div style="float: left; width: 50%;">&#x00F8;</div>
 			<div style="float: right; width: 50%;">&#x00F7;</div>			
 		</div>	
-        <img id="qzimage" ng-src="{{Question.picture}}" onclick="quizApp.StudyImage_OnClick()"></img>				
+         <img id="qzimage" ng-src="data:image/png;base64,{{ LoadEmbeddedImage(Question.picture) }}" onclick="quizApp.StudyImage_OnClick()"></img>				
 	</div>	
 	<table class="quizoptiontable">
 			<tr>
@@ -113,16 +113,17 @@
 <div class="container" ng-if="MenuMode">
 <div class="menudivs">
 	<!-- menu links here -->
-	<div ng-click="$parent.ShowQuizByViewName('Sight_Reading_1', false)">Sight_Reading_1</div>
-	<div ng-click="$parent.ShowQuizByViewName('Brass_Ranges', false)">Brass_Ranges</div>
-	<div ng-click="$parent.ShowQuizByViewName('FifthsCircle', false)">FifthsCircle</div>
-	<div ng-click="$parent.ShowQuizByViewName('InstrumentRanges', false)">InstrumentRanges</div>
-	<div ng-click="$parent.ShowQuizByViewName('KeyRecognition', false)">KeyRecognition</div>
-	<div ng-click="$parent.ShowQuizByViewName('KeyRecognition_Major', false)">KeyRecognition_Major</div>
-	<div ng-click="$parent.ShowQuizByViewName('KeyRecognition_Minor', false)">KeyRecognition_Minor</div>
-	<div ng-click="$parent.ShowQuizByViewName('String_Ranges', false)">String_Ranges</div>
-	<div ng-click="$parent.ShowQuizByViewName('VocalRanges', false)">VocalRanges</div>
-	<div ng-click="$parent.ShowQuizByViewName('WoodWind_Ranges', false)">WoodWind_Ranges</div>
+	<div ng-click="$parent.ShowQuizByViewName('VedicPlanetsinEnglish', true)">Vedic  Planets in English</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacwithintheElements', true)">Zodiac within the Elements</div>
+<div ng-click="$parent.ShowQuizByViewName('Zodiacaland3Qualities', true)">Zodiacal and 3 Qualities</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalAttributes', true)">Zodiacal Attributes</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalDates', true)">Zodiacal Dates</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalGlyphs', true)">Zodiacal Glyphs</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalMiscellaneousSymbols', true)">Zodiacal Miscellaneous Symbols</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalMonths', true)">Zodiacal Months</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalPlanetaryGlyphs', true)">Zodiacal Planetary Glyphs</div>
+<div ng-click="$parent.ShowQuizByViewName('ZodiacalRulersTraditional', true)">Zodiacal Rulers (Traditional)</div>
+
 </div>
 </div>
   <script src="library.js"></script>
