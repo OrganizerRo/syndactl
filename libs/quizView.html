@@ -1,0 +1,43 @@
+<div class="container">
+    <div id="imagediv" ng-click="StudyImage_OnClick()">
+        <img ng-src="{{Question.picture}}"></img>		
+    </div>
+	
+	<div class="score">
+		{{ Score() | pct:0 }}%
+	</div>
+    <div class="question" id="questionDiv">
+        {{Question.question}}
+    </div>
+	<div class="answer">
+        <div ng-class="lastResult.cssClass" style="padding: 10px">
+			<div class="answerwingding" ng-show="lastResult.correct" style="font-family:Wingdings">&#x004a;</div>
+			<div class="answerwingding" ng-show="lastResult.correct == false" style="font-family:Wingdings">
+			<span ng-show="(Score()) >= 80.00">&#x004b;</span>
+			<span ng-show="(Score()) < 80.00">&#x004c;</span>
+			</div>
+			{{ lastResult.msg}}
+		</div>
+		<div>
+			<span ng-show="StudyMode" >{{ Question.answer}}</span>
+			<span ng-show="!lastResult.correct" >{{ lastResult.Question.answer}}</span>
+		</div>
+    </div>
+    <div class="answerbuttondiv" ng-show="!MultipleChoiceMode">
+		<div class="answerdivs">        
+			<div class="collectionOfButtons" ng-repeat="ans in lstAnswers">
+				<input class="answerbuttons" type="button" ng-click="TestAnswer(ans.qid)" value="{{ ans.answer }}">
+			</div>
+		</div>
+	</div>
+	<div class="answertextdiv" ng-show="MultipleChoiceMode">
+		<div class="none">        
+			<input type="text" id="txtAnswer" ng-model="txtAnswer"  class="answertext" size="80">
+				
+			</input>
+		</div>
+		<div>
+			<input id="btnAnswer" type="button" class="answerbuttons"  ng-click="btnTestAnswer_OnClick()" value="Answer"> </input>
+		</div>
+	</div>
+</div>
