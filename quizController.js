@@ -369,22 +369,25 @@ var quizApp = (function(){
 		var screenHeight = getScreenHeight() - 100;		
 		
 		if(newshow){			
-			shadowimg.css("display", "block");
-			shadowimg.css("position", "absolute");			
-			shadowimg.css("top", "0px");
-			shadowimg.css("left", "0px");
+			//shadowimg.css("display", "block");
+			// shadowimg.css("position", "relative");			
+			// shadowimg.css("top", "0px");
+			// shadowimg.css("left", "0px");
 			
 			if(qzimage[0].clientWidth > qzimage[0].clientHeight)
 			{		
 				//SetImageSize((container.clientWidth * 2), -1);
 				$("#viewportimgzoom").css("display", "block");
 				
-				SetImageSize((container.clientWidth/1.5), -1);
 				
+				
+				
+				SetImageSize((container.clientWidth/1.2), -1);
 				ResizeViewPort(qzimage[0].clientWidth	, qzimage[0].clientHeight+30);
 				
 			} else {
 				$("#viewportimgzoom").css("display", "block");
+				
 				SetImageSize(-1, screenHeight);
 				ResizeViewPort(qzimage[0].clientWidth, screenHeight + 30);
 			}
@@ -394,39 +397,14 @@ var quizApp = (function(){
 			
 		} else {
 			$("#viewportimgzoom").css("display", "none");
-			shadowimg.css("left", "0px");
-			shadowimg.css("display", "block");
-			shadowimg.css("position", "relative");
+			// shadowimg.css("left", "0px");
+			// shadowimg.css("display", "block");
+			// shadowimg.css("position", "relative");
 			SetImageSize(-1, -1);
 			
 			Window_OnResize();			
 		}
 		CorrectImageViewerCSS();
-		return;
-	};
-	
-	function ImageZoom_OnClickB(){		
-		var shadowimg = $("#shadowimg");
-		var newshow = shadowimg.attr("data-show") == "false" ? true: false;
-		var container = $("#qzcontainer")[0];
-		var qzimage = $("#qzimage");
-		shadowimg.attr("data-show", newshow);
-		
-		if(newshow){
-			shadowimg.css("display", "block");
-			shadowimg.css("position", "absolute");
-			shadowimg.css("left", "0px");
-			shadowimg.css("top", "0px");									
-			shadowimg.css("width", container.clientWidth - 5 + "px");
-		} else {
-			shadowimg.css("display", "none");
-			shadowimg.css("position", "absolute");
-			shadowimg.css("left", "0px");
-			shadowimg.css("top", "0px");
-			shadowimg.css("width", "2px");
-			//shadowimg.css("height", "2px");
-		}
-		
 		return;
 	};
 	
