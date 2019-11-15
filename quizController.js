@@ -165,18 +165,21 @@ case 'WoodWind_Ranges' :{
 	
 	$scope.StudyMode_OnClick = function() {
 		$scope.StudyMode = !$scope.StudyMode;
+		var lastclass = $scope.lastResult.cssClass;
 		
 		if($scope.StudyMode)
 			$scope.lastResult = {
 				correct: true,
 				msg: "Study Hard !",
-				Question: $scope.Question
+				Question: $scope.Question,
+				cssClass: "correct"
 			};
 		else
 			$scope.lastResult = {
 				correct: true,
 				msg: "",
-				Question: $scope.Question
+				Question: $scope.Question,
+				cssClass: lastclass
 			};
 	};	
 	

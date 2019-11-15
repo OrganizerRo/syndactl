@@ -84,16 +84,16 @@
     </div>
 	<div class="answer">
         <div ng-class="lastResult.cssClass" style="padding: 5px">
-			<div class="answerwingding" ng-show="lastResult.correct">&#x004a;</div>
+			<div class="answerwingding" ng-show="lastResult.correct">( ͡ᵔ ͜ʖ ͡ᵔ)</div>
 			<div class="answerwingding" ng-show="lastResult.correct == false">
-			<span ng-show="(Score() >= 80.00)">&#x004b;</span>
-			<span ng-show="(Score() < 80.00)">&#x004c;</span>
+			<span ng-show="(Score() >= 80.00)">(ㆆ_ㆆ)</span>
+			<span ng-show="(Score() < 80.00)">(╯︵╰,)</span>
 			</div>
 			
 		</div>
 		<div>
-			<span ng-show="StudyMode" >{{ Question.answer}}</span>
-			<span ng-show="!lastResult.correct" >{{ lastResult.Question.answer}}</span>
+			<span ng-show="StudyMode" >Answer ({{ Question.answer}})</span>
+			<span ng-show="!lastResult.correct" > -> Last Correct Answer={{ lastResult.Question.answer}}</span>
 		</div>
     </div>
     <div class="answerbuttondiv" ng-show="!MultipleChoiceMode">

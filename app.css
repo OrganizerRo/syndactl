@@ -50,7 +50,7 @@ html ,body{
 }
 .correct {
 	color: white;
-	background-color: green;
+	background-color: #7d7;
 }
 .displaynone {
 	display: none;
@@ -124,7 +124,7 @@ html ,body{
 	text-align: center;	
 }
 .answerwingding{
-	font-size: 4em;
+	font-size: 1.5em;
 }
 .studymode {
 	background-color: #FFFFFF;
