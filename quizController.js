@@ -19,7 +19,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	$scope.lastResult = {};
 	$scope.ResponseMessage = "";
     $scope.MenuMode = true;
-	
+	$scope.HasImageAnswers = false; //dbFactory.HasImageAnswers();
 	$scope.lastResult = { 
 		correct: true,
 		msg: "Good Luck",
@@ -28,7 +28,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
     
     $scope.init = function(){
 		var view = window.location.search.toLowerCase().split('v=')[1];
-	
+		
 		if(typeof(view) == 'undefined')
 			$scope.SetView("menumode");
 		else {			
@@ -41,53 +41,56 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		
 		if(inView!='menumode')
 			$scope.MenuMode = false;
-		
-		switch(inView){
-			/* Set View Controllers here*/
-			case 'ZodiacwithintheElements' :{
-				$scope.db = dbFactory.ZodiacwithintheElements();
-				break;
-			}
-			case 'Zodiacaland3Qualities' :{
-				$scope.db = dbFactory.Zodiacaland3Qualities();
-				break;
-			}
-			case 'ZodiacalAttributes' :{
-				$scope.db = dbFactory.ZodiacalAttributes();
-				break;
-			}
-			case 'ZodiacalDates' :{
-				$scope.db = dbFactory.ZodiacalDates();
-				break;
-			}
-			case 'ZodiacalGlyphs' :{
-				$scope.db = dbFactory.ZodiacalGlyphs();
-				break;
-			}
-			case 'ZodiacalMiscellaneousSymbols' :{
-				$scope.db = dbFactory.ZodiacalMiscellaneousSymbols();
-				break;
-			}
-			case 'ZodiacalMonths' :{
-				$scope.db = dbFactory.ZodiacalMonths();
-				break;
-			}
-			case 'ZodiacalSiderealMonths' :{
-				$scope.db = dbFactory.ZodiacalMonths();
-				break;
-			}
-			case 'ZodiacalPlanetaryGlyphs' :{
-				$scope.db = dbFactory.ZodiacalPlanetaryGlyphs();
-				break;
-			}
-			case 'ZodiacalRulersTraditional' :{
-				$scope.db = dbFactory.ZodiacalRulersTraditional();
-				break;
-			}
-			case 'SignElementsByDescription' :{
-				$scope.db = dbFactory.SignElementsByDescription();
-				break;
-			}
+	switch(inView){
+case 'Bass_Clef' :{
+                $scope.db = dbFactory.Bass_Clef();
+                break;
+            }
+case 'Brass_Ranges' :{
+                $scope.db = dbFactory.Brass_Ranges();
+                break;
+            }
+case 'FifthsCircle' :{
+                $scope.db = dbFactory.FifthsCircle();
+                break;
+            }
+case 'InstrumentRanges' :{
+                $scope.db = dbFactory.InstrumentRanges();
+                break;
+            }
+case 'KeyRecognition' :{
+                $scope.db = dbFactory.KeyRecognition();
+                break;
+            }
+case 'KeyRecognition_Major' :{
+                $scope.db = dbFactory.KeyRecognition_Major();
+                break;
+            }
+case 'KeyRecognition_Minor' :{
+                $scope.db = dbFactory.KeyRecognition_Minor();
+                break;
+            }
+case 'Sight_Reading_1' :{
+                $scope.db = dbFactory.Sight_Reading_1();
+                break;
+            }
+case 'String_Ranges' :{
+                $scope.db = dbFactory.String_Ranges();
+                break;
+            }
+case 'Treble_Clef' :{
+                $scope.db = dbFactory.Treble_Clef();
+                break;
+            }
+case 'VocalRanges' :{
+                $scope.db = dbFactory.VocalRanges();
+                break;
+            }
+case 'WoodWind_Ranges' :{
+                $scope.db = dbFactory.WoodWind_Ranges();
+                break;
+            }
+
 			case 'menumode':
 			default:{				
 				$scope.MenuMode = true;			
@@ -96,22 +99,25 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		}
 	};
 	
-	$scope.ShowQuizByViewName = function(aview){
+	$scope.ShowQuizByViewName = function(aview, hsImageAnswers){
+			$scope.HasImageAnswers = hsImageAnswers;
 			$scope.SetView(aview);
 			$scope.CalculateNumberOfChoices();
 			$scope.LoadNextQuestion();
+			var self = this;
+			var _angularInterval = $interval;
 			
 			var tmr_cnt = 0;
 			var WindowResize_tmr = $interval(function(){
 				tmr_cnt++;
-				if($("#qzimage")[0].naturalWidth > 0 || tmr_cnt > 1000){
-					if(tmr_cnt > 999)
-						alert("Error on Image Load Timer");
-					quizApp.Window_OnResize();
-					$interval.cancel(WindowResize_tmr);
+				if($("#qzimage")[0] != 'undefined' || tmr_cnt > 100){
+					if($("#qzimage")[0].naturalWidth !=0){
+						quizApp.Window_OnResize();
+						$interval.cancel(WindowResize_tmr);
+					}
 				}
-			}, 100);
-			
+			}, 100,0,true, $interval);
+			// 1000, 0, true, 2, 5
 				
 	};
 	
@@ -127,25 +133,11 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		if($scope.db.length > 8)
 		{
 			$scope.NumOfChoices = 4
-		}
-		var ans = [];
-		$scope.db.filter(function(o,i,a){
-			if(ans.indexOf(o.answer) == -1)
-				ans.push(o.answer);
-		});
-		if(ans.length < $scope.NumOfChoices)
-			$scope.NumOfChoices = ans.length;
+		}		
 	};
 	
 	$scope.dbTitle = function(){
 		return dbFactory.Title;
-	};
-	
-	$scope.ResetScore = function(){
-		$scope.CorrectAnswers = 0;
-		$scope.IncorrectAnswers = 0;
-		$scope.lastResult = {};
-		$scope.ResponseMessage = "";
 	};
 	
 	$scope.Score = function(){
@@ -157,7 +149,6 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	$scope.btnHome_OnClick = function(){
 		$scope.SetView("menumode");		
 	};
-	
 	$scope.SequentialMode_OnClick = function() {
 		$scope.SequentialMode = !$scope.SequentialMode
 		if($scope.SequentialMode){
@@ -165,11 +156,9 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			$scope.LoadNextQuestion();
 		}
 	};
-	
 	$scope.StopOnIncorrectAnswer_OnClick = function(){
 		$scope.StopOnIncorrectAnswer = !$scope.StopOnIncorrectAnswer;
 	}
-	
 	$scope.StudyImage_OnClick = function() {	
 		
 	};
@@ -191,6 +180,13 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			};
 	};	
 	
+	$scope.txtAnswer_KeyUp = function(evt){
+		if(evt.keyCode == 13)
+		{
+			$scope.btnTestAnswer_OnClick();
+		}
+	};
+	
 	$scope.btnTestAnswer_OnClick = function() {						
 		var isRight = $scope.txtAnswer.toLowerCase().indexOf($scope.Question.answer.toLowerCase()) > -1;		
 		
@@ -201,7 +197,9 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	};
 	
 	$scope.MultipleChoiceMode_OnClick = function() {
-		$scope.MultipleChoiceMode = !$scope.MultipleChoiceMode; //toggle				
+		$scope.MultipleChoiceMode = !$scope.MultipleChoiceMode; //toggle
+		
+		
 	};
 	
     $scope.Randomize =  function(start, end) {
@@ -216,10 +214,9 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
         var isRight = (qid == $scope.Question.qid);		
 		
 		$scope.SetAnswerState(isRight, $scope.Question);
-		
 		if(isRight || !$scope.StopOnIncorrectAnswer)
-			$scope.LoadNextQuestion();		
-    };
+			$scope.LoadNextQuestion();
+	};
     
 	$scope.SetAnswerState = function(isRight, inQuestion){		
 		$scope.lastResult = { 
@@ -243,9 +240,9 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
     
     $scope.GetRandomAnswer = function(NotAllowedAnswers){
         var allowedAnswers = $scope.db.filter(function(co, ix, ar){
-            return NotAllowedAnswers.filter(function(o,i,r){
+            return NotAllowedAnswers.find(function(o,i,r){
 				return o.answer == co.answer;
-			}).length == 0; //wasn't found
+			}) == undefined;
         });				        
         var rndQuestionIX = $scope.Randomize(0, allowedAnswers.length - 1);        
 		
@@ -292,9 +289,11 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 			answer: lQuestion.answer
 		});
     };
-     $scope.LoadEmbeddedImage = function(imagename){
+     
+	$scope.LoadEmbeddedImage = function(imagename){
 		return dbFactory.GetImage(imagename);
 	};
+	
     $scope.init();
 }]);
 
@@ -304,43 +303,37 @@ var quizApp = (function(){
 	var imageHeight = 10;
 	
 	function Window_OnResize(){		
-		var multiplier =  1;
-		var imgdiv = $("#imagediv");		
+		var imgdiv = $("#imagediv");
+		var hia = angular.element('#mainbody').scope().HasImageAnswers; // call angular from jquery
+		
 		if(imgdiv.attr("data-zoomed") != "false")
 			return;		
 		
 		var dimensions = RecalculateImageSize();
-		SetImageSize(dimensions.width, -1);
-		if($("#qzimage")[0].naturalWidth < 473){
-			multiplier = 2;
-		}
-		dimensions.height =  $("#qzimage")[0].clientHeight + 20;
+		SetImageSize(dimensions.width, dimensions.height);
 		
-		ResizeViewPort(dimensions.width * multiplier, dimensions.height);
+		//SetImageSize(-1, -1);
+		var ih = $("#qzimage")[0].clientHeight;		
+		ResizeViewPort(dimensions.width, ih, hia);
 		CorrectImageViewerCSS();
 	};
 	
 	function RecalculateImageSize(){			
 		var qzcontainer = $("#qzcontainer")[0];
-		var qimg = $("#qzimage");
-		if (qimg[0].naturalWidth < 473){
-			self.imageWidth = qzcontainer.clientWidth / 4;	
-		} else {
-			self.imageWidth = qzcontainer.clientWidth / 1.5;
-		}
-		if(self.imageWidth > qimg[0].naturalWidth && qimg[0].naturalWidth > 472)
-			self.imageWidth = $("#qzimage")[0].naturalWidth;
-		if (qimg[0].naturalWidth > 373)
-			self.imageHeight = (qimg[0].naturalHeight + 20)/ (qimg[0].clientWidth / self.imageWidth) 
-		else
-			self.imageHeight = qimg[0].clientHeight;
+		//alert();
+//		console.log($("#qzimage")[0].naturalWidth);
+		self.imageWidth = qzcontainer.clientWidth / 1.5;
 		
+		if(self.imageWidth > $("#qzimage")[0].naturalWidth)
+			self.imageWidth = $("#qzimage")[0].naturalWidth;
+		
+		/*self.imageHeight = qzcontainer.clientHeight /3;*/
 		return {
 			width: self.imageWidth,
 			height: self.imageHeight
 		};
 	};
-		
+	
 	function SetImageSize(width, height){
 		var qz = $("#qzimage");			
 		qz.css("width", ((width != -1)? width + "px": "auto"));
@@ -348,21 +341,21 @@ var quizApp = (function(){
 		return;
 	};
 	
-	function ResizeViewPort(imageWidthParm,height){
+	function ResizeViewPort(imageWidthParm,height, imageHasHints){
+		var imageHintDivider = 2;
+		
+		imageHintDivider = (imageHasHints == true)? 2 : 1;
+		console.log(imageHintDivider);
 		$("#imagediv").css("overflow-x", "scroll");
 		$("#imagediv").css("overflow-y", "hidden");		
-		$("#imagediv").css("width", imageWidthParm / 2);
-		$("#imagediv").css("height", height);
+		$("#imagediv").css("width", imageWidthParm / imageHintDivider);
+		$("#imagediv").css("height", height +15);
 		
 		return;
 	};
 	
 	function getScreenHeight(){
 		return window.innerHeight|| d.getElementsByTagName('body')[0].clientHeight|| document.clientHeight; 
-	}
-	
-	function getScreenWidth(){
-		return window.innerWidth|| d.getElementsByTagName('body')[0].clientWidth || document.clientWidth; 
 	}
 	
 	function ImageZoom_OnClick(){		
@@ -386,10 +379,10 @@ var quizApp = (function(){
 			} else {
 				$("#viewportimgzoom").css("display", "block");
 				SetImageSize(-1, screenHeight);
-				ResizeViewPort(qzimage[0].clientWidth, screenHeight+30);
+				ResizeViewPort(qzimage[0].clientWidth, screenHeight + 30);
 			}
 			
-			if(shadowimg[0].clientWidth < getScreenWidth())
+			if(shadowimg[0].clientWidth < getScreenHeight())
 				shadowimg.css("left", (getScreenHeight() /2) - (shadowimg[0].clientWidth / 2) + "px");
 			
 		} else {
@@ -434,20 +427,17 @@ var quizApp = (function(){
 		CorrectStudyImageScrollPosition();
 		CorrectViewPortImgZoomWidth();
 	};
-	
 	function CorrectStudyImageScrollPosition(){
 		var curobj = $("#imagediv")[0];
 		if(curobj.scrollLeft != 0)
 			curobj.scrollLeft = curobj.clientWidth;
 		return;
 	};
-	
 	function CorrectViewPortImgZoomWidth(){
 		var wid = $("#qzimage")[0].clientWidth;		
 		$("#viewportimgzoom").css("width", wid + "px");		
 		return;
 	};
-	
 	function StudyImage_OnClick(){
 		var curobj = $("#imagediv")[0];
 		var curpos = curobj.scrollLeft;
@@ -457,7 +447,6 @@ var quizApp = (function(){
 			curobj.scrollLeft = 0;
 		return;
 	};
-	
 	return {
 		Window_OnResize: Window_OnResize,
 		RecalculateImageSize : RecalculateImageSize,
@@ -466,13 +455,9 @@ var quizApp = (function(){
 	};
 })();
 
+
 $(document).ready(function(){
 
-	$('#txtAnswer').keyup(function(e){
-		if(e.keyCode == 13){
-			$('#btnAnswer').click();
-		} 
-	});
 	$(window).on('resize', function(){				
 		quizApp.Window_OnResize();
 	});

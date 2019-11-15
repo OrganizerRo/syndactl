@@ -19,10 +19,10 @@
 <div id="qzcontainer" class="container" ng-if="MenuMode==false" >
     <div id="imagediv" data-zoomed="false">
 		<div id="viewportimgzoom" class="wingdtextbutton" style="display: none;" onclick="quizApp.ImageZoom_OnClick()">			
-			<div style="float: left; width: 50%;">&#x00F8;</div>
-			<div style="float: right; width: 50%;">&#x00F7;</div>			
+			<div style="float: left;width: 49%;">&#x00F8;</div>
+			<div style="float: right; width 49%;">&#x00F7;</div>			
 		</div>	
-         <img id="qzimage" ng-src="data:image/png;base64,{{ LoadEmbeddedImage(Question.picture) }}" onclick="quizApp.StudyImage_OnClick()"></img>				
+         <img id="qzimage" ng-src='data:image/png;base64,{{ LoadEmbeddedImage(Question.picture) }}' onclick="quizApp.StudyImage_OnClick()"></img>				
 	</div>	
 	<table class="quizoptiontable">
 			<tr>
@@ -45,7 +45,7 @@
 				</th>
 				<th rowspan="2">
 					<div id="imgzoom"  class="wingdtextbutton" onclick="quizApp.ImageZoom_OnClick()">
-						&#x00f7;
+						&#x00F6;
 					</div>
 				</th>
 			</tr>
@@ -86,8 +86,8 @@
         <div ng-class="lastResult.cssClass" style="padding: 5px">
 			<div class="answerwingding" ng-show="lastResult.correct" style="font-family:Wingdings">&#x004a;</div>
 			<div class="answerwingding" ng-show="lastResult.correct == false" style="font-family:Wingdings">
-			<span ng-show="(Score()) >= 80.00">&#x004b;</span>
-			<span ng-show="(Score()) < 80.00">&#x004c;</span>
+			<span ng-show="(Score() >= 80.00)">&#x004b;</span>
+			<span ng-show="(Score() < 80.00)">&#x004c;</span>
 			</div>
 			
 		</div>
@@ -112,17 +112,19 @@
 </div>
 <div class="container" ng-if="MenuMode">
 <div class="menudivs">
-	<!-- menu links here -->
-	<div ng-click="$parent.ShowQuizByViewName('VedicPlanetsinEnglish', true)">Vedic  Planets in English</div>
-<div ng-click="$parent.ShowQuizByViewName('ZodiacwithintheElements', true)">Zodiac within the Elements</div>
-<div ng-click="$parent.ShowQuizByViewName('Zodiacaland3Qualities', true)">Zodiacal and 3 Qualities</div>
-<div ng-click="$parent.ShowQuizByViewName('ZodiacalAttributes', true)">Zodiacal Attributes</div>
-<div ng-click="$parent.ShowQuizByViewName('ZodiacalDates', true)">Zodiacal Dates</div>
-<div ng-click="$parent.ShowQuizByViewName('ZodiacalGlyphs', true)">Zodiacal Glyphs</div>
-<div ng-click="$parent.ShowQuizByViewName('ZodiacalMiscellaneousSymbols', true)">Zodiacal Miscellaneous Symbols</div>
-<div ng-click="$parent.ShowQuizByViewName('ZodiacalMonths', true)">Zodiacal Months</div>
-<div ng-click="$parent.ShowQuizByViewName('ZodiacalPlanetaryGlyphs', true)">Zodiacal Planetary Glyphs</div>
-<div ng-click="$parent.ShowQuizByViewName('ZodiacalRulersTraditional', true)">Zodiacal Rulers (Traditional)</div>
+
+<div ng-click="$parent.ShowQuizByViewName('Bass_Clef')">Bass_Clef</div>
+<div ng-click="$parent.ShowQuizByViewName('Brass_Ranges')">Brass_Ranges</div>
+<div ng-click="$parent.ShowQuizByViewName('FifthsCircle')">FifthsCircle</div>
+<div ng-click="$parent.ShowQuizByViewName('InstrumentRanges')">InstrumentRanges</div>
+<div ng-click="$parent.ShowQuizByViewName('KeyRecognition')">KeyRecognition</div>
+<div ng-click="$parent.ShowQuizByViewName('KeyRecognition_Major')">KeyRecognition_Major</div>
+<div ng-click="$parent.ShowQuizByViewName('KeyRecognition_Minor')">KeyRecognition_Minor</div>
+<div ng-click="$parent.ShowQuizByViewName('Sight_Reading_1')">Sight_Reading_1</div>
+<div ng-click="$parent.ShowQuizByViewName('String_Ranges', false)">String_Ranges</div>
+<div ng-click="$parent.ShowQuizByViewName('Treble_Clef')">Treble_Clef</div>
+<div ng-click="$parent.ShowQuizByViewName('VocalRanges')">VocalRanges</div>
+<div ng-click="$parent.ShowQuizByViewName('WoodWind_Ranges')">WoodWind_Ranges</div>
 
 </div>
 </div>
