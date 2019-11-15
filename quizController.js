@@ -374,10 +374,15 @@ var quizApp = (function(){
 			shadowimg.css("top", "0px");
 			shadowimg.css("left", "0px");
 			
-			if(qzimage.clientWidth > qzimage.clientHeight)
+			if(qzimage[0].clientWidth > qzimage[0].clientHeight)
 			{		
-				SetImageSize((container.clientWidth * 2), -1);
-				ResizeViewPort(qzimage.clientWidth, ih);
+				//SetImageSize((container.clientWidth * 2), -1);
+				$("#viewportimgzoom").css("display", "block");
+				
+				SetImageSize((container.clientWidth/1.5), -1);
+				
+				ResizeViewPort(qzimage[0].clientWidth	, qzimage[0].clientHeight+30);
+				
 			} else {
 				$("#viewportimgzoom").css("display", "block");
 				SetImageSize(-1, screenHeight);
@@ -442,11 +447,23 @@ var quizApp = (function(){
 	};
 	function StudyImage_OnClick(){
 		var curobj = $("#imagediv")[0];
-		var curpos = curobj.scrollLeft;
-		if(curpos == 0)
-			curobj.scrollLeft = curobj.clientWidth;
+		var hia = angular.element('#mainbody').scope().HasImageAnswers;
+		
+		var shadowimg = $("#imagediv");
+		var iszoomed = shadowimg.attr("data-zoomed");
+		
+		if(iszoomed==false)
+		{
+			var curpos = curobj.scrollLeft;
+			if(curpos == 0)
+				curobj.scrollLeft = curobj.clientWidth;
+			else
+				curobj.scrollLeft = 0;
+		}
 		else
-			curobj.scrollLeft = 0;
+		{
+			ImageZoom_OnClick();
+		}
 		return;
 	};
 	return {
