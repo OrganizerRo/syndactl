@@ -450,7 +450,7 @@ var quizApp = (function(){
 		var hia = angular.element('#mainbody').scope().HasImageAnswers;
 		
 		var shadowimg = $("#imagediv");
-		var iszoomed = shadowimg.attr("data-zoomed");
+		var iszoomed = shadowimg.attr("data-zoomed") == 'true' ? true:false;
 		
 		if(iszoomed==false)
 		{
