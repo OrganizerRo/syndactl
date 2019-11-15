@@ -29,6 +29,22 @@ html ,body{
 	margin-right: auto;
 	cursor: pointer;
 }
+.menudivs div {
+	border: outset 1px #000;
+	margin: 5px;
+	padding: 5px;
+	text-align: center;
+}
+
+.menudivs div:hover {
+	border: inset 1px #000;
+	background-color: #7D7;
+	
+}
+.imgzoom:hover{
+	border: solid 1px #7d7;
+}
+
 .container {
 	width: 98%;
 }
@@ -45,7 +61,6 @@ html ,body{
 }
 
 .wingdtextbutton{
-	font-family: WingDings;
 	font-size: 2em;
 	cursor: pointer;
 }
