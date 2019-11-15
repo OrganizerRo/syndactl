@@ -276,10 +276,12 @@ case 'WoodWind_Ranges' :{
         for(var x=0;x < $scope.NumOfChoices - 1;x++){
             var rndAns = $scope.GetRandomAnswer($scope.lstAnswers);
 			
-            $scope.lstAnswers.push({ 
-				qid: rndAns.qid,
-				answer:rndAns.answer
-			});
+			if(rndAns !== undefined){
+				$scope.lstAnswers.push({ 
+					qid: rndAns.qid,
+					answer:rndAns.answer
+				});
+			}
         };
 		
 		$scope.lstAnswers.splice(0,1);
