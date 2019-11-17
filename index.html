@@ -9,7 +9,7 @@
   <title>{{ dbTitle() }}</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="app.css">  
+  <link rel="stylesheet" href="libs\app.css">  
 </head>
 <body id="mainbody" ng-controller="quizController">
   <!--[if lt IE 7]>
@@ -43,6 +43,9 @@
 				<th>
 					<span style="font-size: 1.5em;">C</span>
 				</th>
+				<th>
+					<span style="font-size: 1.5em;">&#x21bb;</span>
+				</th>
 				<th rowspan="2">
 					<div id="imgzoom"  class="wingdtextbutton" onclick="quizApp.ImageZoom_OnClick()">
 						&#x2195;
@@ -72,6 +75,12 @@
 					<span title="Stop until you've answered correctly">
 						<span  class="textcheck" ng-click="StopOnIncorrectAnswer_OnClick()" ng-show="StopOnIncorrectAnswer">☑</span>
 						<span  class="textcheck" ng-click="StopOnIncorrectAnswer_OnClick()"  ng-show="!StopOnIncorrectAnswer" >☐</span>
+					</span>
+				</td>
+				<td>
+					<span title="Cyclical Mode tests every question">
+						<span  class="textcheck" ng-click="CyclicalMode_OnClick()" ng-show="CyclicalMode">☑</span>
+						<span  class="textcheck" ng-click="CyclicalMode_OnClick()"  ng-show="!CyclicalMode" >☐</span>
 					</span>
 				</td>
 			</tr>
@@ -128,9 +137,9 @@
 
 </div>
 </div>
-  <script src="library.js"></script>
-  <script src="angular-route.js"></script>
-  <script src="app.js"></script>    
+  <script src="libs\library.js"></script>
+  <script src="libs\angular-route.js"></script>
+  <script src="libs\app.js"></script>    
   <script src="db.js"></script>
   <script src="quizController.js"></script>
 </body>

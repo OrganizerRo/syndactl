@@ -8,8 +8,10 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	$scope.MultipleChoiceMode = false;
 	$scope.StopOnIncorrectAnswer = false;
 	$scope.txtAnswer = "";
+	$scope.CyclicalMode = true;
 	
 	//privates
+	$scope.QuizList = [];
 	$scope.CorrectAnswers = 0;
     $scope.IncorrectAnswers = 0;
     $scope.db = [];
@@ -37,11 +39,49 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		}
     };
     
+	$scope.ResetQuizArray = function()
+	{
+		var nums = [];
+		$scope.QuizList = [];
+		var prevHeads = 0;
+		var heads = 1;
+		
+		if($scope.db.length == 0)
+			return;
+		
+		for(var i=0; i < $scope.db.length; i++)
+		{
+			nums.push(i);
+		}
+		for(var i=0; i< $scope.db.length; i++)
+		{	
+			heads = $scope.Randomize(0,2);
+			
+			if(heads == 0)
+			{	
+				$scope.QuizList.push(nums[0]);
+				nums = nums.filter(function(i){ return i != nums[0];});
+				//nums = pnums;
+			}
+			else
+			{
+				$scope.QuizList.push(nums[nums.length - 1]);
+				nums = nums.filter(function(i){ return i != nums[nums.length - 1];});
+				//nums = pnums;
+			}
+		}
+	};
+	
 	$scope.SetView = function(inView){
+		
+		$scope.IncorrectAnswers = 0;
+		$scope.CorrectAnswers = 0;
+		$scope.QuestionIndex = 0;
 		
 		if(inView!='menumode')
 			$scope.MenuMode = false;
 	switch(inView){
+				
 case 'Bass_Clef' :{
                 $scope.db = dbFactory.Bass_Clef();
                 break;
@@ -91,12 +131,15 @@ case 'WoodWind_Ranges' :{
                 break;
             }
 
+
 			case 'menumode':
 			default:{				
-				$scope.MenuMode = true;			
+				$scope.MenuMode = true;		
+				$scope.db = [];
 				break;
 			}
 		}
+		$scope.ResetQuizArray();
 	};
 	
 	$scope.ShowQuizByViewName = function(aview, hsImageAnswers){
@@ -183,6 +226,10 @@ case 'WoodWind_Ranges' :{
 			};
 	};	
 	
+	$scope.CyclicalMode_OnClick = function(){
+		$scope.CyclicalMode = !$scope.CyclicalMode;
+	};
+	
 	$scope.txtAnswer_KeyUp = function(evt){
 		if(evt.keyCode == 13)
 		{
@@ -240,7 +287,18 @@ case 'WoodWind_Ranges' :{
         var rndQuestionIX = $scope.Randomize(0, $scope.db.length -1);
         return $scope.db[rndQuestionIX];  //question row object
     };
-    
+	
+    $scope.GetNextQuizArrayQuestion = function(){
+		$scope.QuestionIndex++;
+		
+		if($scope.QuestionIndex == $scope.db.length){
+			$scope.QuestionIndex = 0;
+			$scope.ResetQuizArray();
+		}
+		
+		return $scope.db[$scope.QuizList[$scope.QuestionIndex]];
+	}
+	
     $scope.GetRandomAnswer = function(NotAllowedAnswers){
         var allowedAnswers = $scope.db.filter(function(co, ix, ar){
             return NotAllowedAnswers.find(function(o,i,r){
@@ -264,7 +322,8 @@ case 'WoodWind_Ranges' :{
 			else
 				$scope.QuestionIndex++;
 		} else {			
-			lQuestion = $scope.GetRandomQuestion();
+			//lQuestion = $scope.GetRandomQuestion();
+			lQuestion = $scope.GetNextQuizArrayQuestion();
 		}		
 		
         $scope.Question = lQuestion;        
