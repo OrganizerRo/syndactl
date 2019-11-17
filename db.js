@@ -19,10 +19,69 @@ fac.ImagesDB = [];
 
 fac.GetImage = function (filename) {var images = fac.ImagesDB;for(var i = 0; i < images.length; i++) { if(images[i].filename == filename){ return images[i].data; }} return ''; };
 
+fac.GetView = function(inView) {
+	switch(inView){
+		case 'Bass_Clef' :{
+			                return this.Bass_Clef();
+			                break;
+		            }
+		case 'Brass_Ranges' :{
+			                return this.Brass_Ranges();
+			                break;
+		            }
+		case 'FifthsCircle' :{
+			                return this.FifthsCircle();
+			                break;
+		            }
+		case 'InstrumentRanges' :{
+			                return this.InstrumentRanges();
+			                break;
+		            }
+		case 'KeyRecognition' :{
+			                return this.KeyRecognition();
+			                break;
+		            }
+		case 'KeyRecognition_Major' :{
+			                return this.KeyRecognition_Major();
+			                break;
+		            }
+		case 'KeyRecognition_Minor' :{
+			                return this.KeyRecognition_Minor();
+			                break;
+		            }
+		case 'Sight_Reading_1' :{
+			                return this.Sight_Reading_1();
+			                break;
+		            }
+		case 'String_Ranges' :{
+			                return this.String_Ranges();
+			                break;
+		            }
+		case 'Treble_Clef' :{
+			                return this.Treble_Clef();
+			                break;
+		            }
+		case 'VocalRanges' :{
+			                return this.VocalRanges();
+			                break;
+		            }
+		case 'WoodWind_Ranges' :{
+			                return this.WoodWind_Ranges();
+			                break;
+		            }
+            case 'menumode':
+            default:{
+                $scope.MenuMode = true;
+                $scope.db = [];
+                break;
+            }
+        }
+};
+
 /* Bass_Clef */
 /* 
 	case 'Bass_Clef' :{
-		$scope.db = dbFactory.Bass_Clef();
+		return this.Bass_Clef();
 		break;
 	}
 */
@@ -69,7 +128,7 @@ fac.Bass_Clef = function() {
 /* Brass_Ranges */
 /* 
 	case 'Brass_Ranges' :{
-		$scope.db = dbFactory.Brass_Ranges();
+		return this.Brass_Ranges();
 		break;
 	}
 */
@@ -105,7 +164,7 @@ fac.Brass_Ranges = function() {
 /* FifthsCircle */
 /* 
 	case 'FifthsCircle' :{
-		$scope.db = dbFactory.FifthsCircle();
+		return this.FifthsCircle();
 		break;
 	}
 */
@@ -119,7 +178,7 @@ fac.FifthsCircle = function() {
 /* InstrumentRanges */
 /* 
 	case 'InstrumentRanges' :{
-		$scope.db = dbFactory.InstrumentRanges();
+		return this.InstrumentRanges();
 		break;
 	}
 */
@@ -189,7 +248,7 @@ fac.InstrumentRanges = function() {
 /* KeyRecognition */
 /* 
 	case 'KeyRecognition' :{
-		$scope.db = dbFactory.KeyRecognition();
+		return this.KeyRecognition();
 		break;
 	}
 */
@@ -235,7 +294,7 @@ fac.KeyRecognition = function() {
 /* KeyRecognition_Major */
 /* 
 	case 'KeyRecognition_Major' :{
-		$scope.db = dbFactory.KeyRecognition_Major();
+		return this.KeyRecognition_Major();
 		break;
 	}
 */
@@ -281,7 +340,7 @@ fac.KeyRecognition_Major = function() {
 /* KeyRecognition_Minor */
 /* 
 	case 'KeyRecognition_Minor' :{
-		$scope.db = dbFactory.KeyRecognition_Minor();
+		return this.KeyRecognition_Minor();
 		break;
 	}
 */
@@ -311,7 +370,7 @@ fac.KeyRecognition_Minor = function() {
 /* Sight_Reading_1 */
 /* 
 	case 'Sight_Reading_1' :{
-		$scope.db = dbFactory.Sight_Reading_1();
+		return this.Sight_Reading_1();
 		break;
 	}
 */
@@ -378,7 +437,7 @@ fac.Sight_Reading_1 = function() {
 /* String_Ranges */
 /* 
 	case 'String_Ranges' :{
-		$scope.db = dbFactory.String_Ranges();
+		return this.String_Ranges();
 		break;
 	}
 */
@@ -400,7 +459,7 @@ fac.String_Ranges = function() {
 /* Treble_Clef */
 /* 
 	case 'Treble_Clef' :{
-		$scope.db = dbFactory.Treble_Clef();
+		return this.Treble_Clef();
 		break;
 	}
 */
@@ -427,7 +486,7 @@ fac.Treble_Clef = function() {
 /* VocalRanges */
 /* 
 	case 'VocalRanges' :{
-		$scope.db = dbFactory.VocalRanges();
+		return this.VocalRanges();
 		break;
 	}
 */
@@ -451,7 +510,7 @@ fac.VocalRanges = function() {
 /* WoodWind_Ranges */
 /* 
 	case 'WoodWind_Ranges' :{
-		$scope.db = dbFactory.WoodWind_Ranges();
+		return this.WoodWind_Ranges();
 		break;
 	}
 */

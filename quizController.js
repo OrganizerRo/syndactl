@@ -79,65 +79,14 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 		$scope.QuestionIndex = 0;
 		
 		if(inView!='menumode')
+		{
 			$scope.MenuMode = false;
-	switch(inView){
-				
-case 'Bass_Clef' :{
-                $scope.db = dbFactory.Bass_Clef();
-                break;
-            }
-case 'Brass_Ranges' :{
-                $scope.db = dbFactory.Brass_Ranges();
-                break;
-            }
-case 'FifthsCircle' :{
-                $scope.db = dbFactory.FifthsCircle();
-                break;
-            }
-case 'InstrumentRanges' :{
-                $scope.db = dbFactory.InstrumentRanges();
-                break;
-            }
-case 'KeyRecognition' :{
-                $scope.db = dbFactory.KeyRecognition();
-                break;
-            }
-case 'KeyRecognition_Major' :{
-                $scope.db = dbFactory.KeyRecognition_Major();
-                break;
-            }
-case 'KeyRecognition_Minor' :{
-                $scope.db = dbFactory.KeyRecognition_Minor();
-                break;
-            }
-case 'Sight_Reading_1' :{
-                $scope.db = dbFactory.Sight_Reading_1();
-                break;
-            }
-case 'String_Ranges' :{
-                $scope.db = dbFactory.String_Ranges();
-                break;
-            }
-case 'Treble_Clef' :{
-                $scope.db = dbFactory.Treble_Clef();
-                break;
-            }
-case 'VocalRanges' :{
-                $scope.db = dbFactory.VocalRanges();
-                break;
-            }
-case 'WoodWind_Ranges' :{
-                $scope.db = dbFactory.WoodWind_Ranges();
-                break;
-            }
-
-
-			case 'menumode':
-			default:{				
-				$scope.MenuMode = true;		
-				$scope.db = [];
-				break;
-			}
+			$scope.db = dbFactory.GetView(inView);
+		} else 
+		{
+			
+			$scope.MenuMode = true;		
+			$scope.db = [];
 		}
 		$scope.ResetQuizArray();
 	};
