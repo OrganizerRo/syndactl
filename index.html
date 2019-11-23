@@ -22,9 +22,9 @@
 			<div style="float: left;">&#x261f;</div>
 			<div style="float: right;">&#x261f;</div>			
 		</div>	
-         <img id="qzimage" ng-src='data:image/png;base64,{{ LoadEmbeddedImage(Question.picture) }}' onclick="quizApp.StudyImage_OnClick()"></img>				
+         <img id="qzimage" ng-show="ShowImage" ng-src='data:image/png;base64,{{ LoadEmbeddedImage(Question.picture) }}' onclick="quizApp.StudyImage_OnClick()"></img>				
 	</div>	
-	<table class="quizoptiontable">
+		<table class="quizoptiontable">
 			<tr>
 				<th rowspan="2">
 					<div id="imgzoom"  class="wingdtextbutton" style="font-size: 1.5em;" ng-click="btnHome_OnClick()">
@@ -45,6 +45,9 @@
 				</th>
 				<th>
 					<span style="font-size: 1.5em;">&#x21bb;</span>
+				</th>
+				<th>
+					<span style="font-size: 1.5em;">I</span>
 				</th>
 				<th rowspan="2">
 					<div id="imgzoom"  class="wingdtextbutton" onclick="quizApp.ImageZoom_OnClick()">
@@ -81,6 +84,12 @@
 					<span title="Cyclical Mode tests every question">
 						<span  class="textcheck" ng-click="CyclicalMode_OnClick()" ng-show="CyclicalMode">☑</span>
 						<span  class="textcheck" ng-click="CyclicalMode_OnClick()"  ng-show="!CyclicalMode" >☐</span>
+					</span>
+				</td>
+				<td>
+					<span title="Show Image Questions">
+						<span  class="textcheck" ng-click="ShowImageMode_OnClick()" ng-show="ShowImage">☑</span>
+						<span  class="textcheck" ng-click="ShowImageMode_OnClick()"  ng-show="!ShowImage" >☐</span>
 					</span>
 				</td>
 			</tr>

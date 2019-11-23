@@ -9,6 +9,7 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	$scope.StopOnIncorrectAnswer = false;
 	$scope.txtAnswer = "";
 	$scope.CyclicalMode = true;
+	$scope.ShowImage = true;
 	
 	//privates
 	$scope.QuizList = [];
@@ -177,6 +178,10 @@ app.controller("quizController", ['$scope', '$interval', '$routeParams', 'dbFact
 	
 	$scope.CyclicalMode_OnClick = function(){
 		$scope.CyclicalMode = !$scope.CyclicalMode;
+	};
+	
+	$scope.ShowImageMode_OnClick = function(){
+		$scope.ShowImage = !$scope.ShowImage;
 	};
 	
 	$scope.txtAnswer_KeyUp = function(evt){
